@@ -14,5 +14,6 @@ public class Asiakas {
     String talonumero;
     String postitoimipaikka;
     String postinumero;
+    String yhteyshenkilo;
         
 }
