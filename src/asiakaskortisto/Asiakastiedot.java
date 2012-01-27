@@ -11,7 +11,7 @@ import java.util.Date;
  * @author kxkyllon
  */
 public class Asiakastiedot {
-    //* Asiakkaan tiedot tallettaa olio
+    //* Asiakkaan tiedot tallettavsa olio
     //private String asiakasNumero; // voiko generoida automaattisesti ?
     private String nimi;
     private String kadunNimi;

@@ -10,10 +10,14 @@ import java.util.HashMap;
  *
  * @author kxkyllon
  */
-class Asiakas {
+public class Asiakastoiminnot {
     //* Asiakastoiminnot
     private String tiedostonNimi = "asiakastiedosto.txt";
     private HashMap<String, Asiakastiedot> asiakaslista = new HashMap <String, Asiakastiedot>();
+
+    public String getTiedostonNimi() {
+       return tiedostonNimi;
+    }
     
     
 }

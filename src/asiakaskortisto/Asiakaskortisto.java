@@ -12,7 +12,7 @@ public class Asiakaskortisto {
 
     public static void main(String[] args) {
         //* Asiakaskortiston pääohjelma
-        Asiakas asiakas = new Asiakas();
+        Asiakastoiminnot asiakas = new Asiakastoiminnot();
         Tekstiliittyma teksti = new Tekstiliittyma();
 
 
@@ -35,7 +35,7 @@ public class Asiakaskortisto {
 
     }
 
-    private static void kasitteleAsiakasValinta(int asiakasValinta, Asiakas asiakas, Tekstiliittyma teksti) {
+    private static void kasitteleAsiakasValinta(int asiakasValinta, Asiakastoiminnot asiakas, Tekstiliittyma teksti) {
         switch (asiakasValinta) {
             case 0: // Palaa päävalikkoon
                 System.out.println("Palataan päävalikkoon");
