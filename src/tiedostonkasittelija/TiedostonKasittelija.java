@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *
+ * Tiedostonkäsittelyrutiinit hoidetaan tiedostonkäsittelijässä
  * @author Kati
  */
 public class TiedostonKasittelija {
@@ -27,6 +27,7 @@ public class TiedostonKasittelija {
 
 
     public ArrayList<String> lataaAsiakkaatTiedostosta() throws IOException {
+        /** Ohjelman alussa luetaan asiakastiedot tiedostosta */
         File tiedosto = new File(tiedostonNimi);
         ArrayList<String> tiedostostaLuetut = new ArrayList<String>();
         try {
@@ -43,6 +44,7 @@ public class TiedostonKasittelija {
     }
 
     public void kirjoitaTiedostoon(ArrayList<String> lista) throws IOException {
+        /** Ohjelman lopuksi kirjoitetaan asiakastiedot tiedostoon*/
         File tiedosto = new File(tiedostonNimi);
         FileWriter kirjoittaja = new FileWriter(tiedosto);
 
@@ -53,6 +55,7 @@ public class TiedostonKasittelija {
     }
 
     public void luoTiedosto() throws IOException {
+        /** Jos tiedostoa ei ole  olemassa, luodaan tyhjä tiedosto */
         FileWriter kirjoittaja = null;
         try {
             File tiedosto = new File(tiedostonNimi);

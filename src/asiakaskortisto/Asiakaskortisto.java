@@ -4,14 +4,16 @@
  */
 package asiakaskortisto;
 
-/**
- *
- * @author kxkyllon
+import kayttoliittyma.Tekstiliittyma;
+
+/** Asiakaskortisto toimii pääohjelmana ohjaten käyttöliittymältä 
+ *  tulevia valintoja eteenpäin
+ * @author Kati
  */
 public class Asiakaskortisto {
 
     public static void main(String[] args) {
-        //* Asiakaskortiston pääohjelma
+        /** Asiakaskortiston pääohjelma */
         Asiakastoiminnot asiakas = new Asiakastoiminnot();
         Tekstiliittyma teksti = new Tekstiliittyma();
 
@@ -36,17 +38,24 @@ public class Asiakaskortisto {
     }
 
     private static void kasitteleAsiakasValinta(int asiakasValinta, Asiakastoiminnot asiakas, Tekstiliittyma teksti) {
+        /** Ohjaa käyttäjän valinnan perusteella pyynnön eteenpäin asiakastoiminnolle*/
         switch (asiakasValinta) {
             case 0: // Palaa päävalikkoon
                 System.out.println("Palataan päävalikkoon");
                 return;
             case 1: // Listaa asiakkaat
                 System.out.println("Asiakaslistaus");
-                //todo hae asiakaslistaus
+                tulostaAsiakaslista(asiakas.listaaAsiakkaat());
                 break;
-            case 3: // Hae asiakas
-                System.out.println("Siirry hakunäytölle");
+            case 2: // Hae asiakas
                 // todo kysy hakuehto ja hae
+                break;
+            case 3: // Lisää asiakas
+                
+                asiakas.lisaaAsiakas(teksti.kysyAsiakastiedot());
+                System.out.println("Asiakas lisätty");
+               //asiakas.haeAsiakas();
+                
                 break;
             case 4: // Poista asiakas 
                 System.out.println("Siirry poistonäytölle");
@@ -60,5 +69,10 @@ public class Asiakaskortisto {
                 return;
         }
 
+    }
+
+    private static void tulostaAsiakaslista(String asiakasLista) {
+        /** tulostetaan asiakaslista */
+        System.out.println(asiakasLista);
     }
 }
