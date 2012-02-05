@@ -81,9 +81,10 @@ public class Asiakastoiminnot {
                 + String.format("%-25s", "Puhelinnumero")
                 + String.format("%-25s", "Yhteyshenkilo \n");
 
-
+        // Tässä jokin ongelma, eka asiakasrivi siftaantuu noin 10 merkillä oikealle
+        // muut tulostuvat oikein
         for (String asiakasNimi : asiakaslista.keySet()) {
-             listalla = listalla + asiakaslista.get(asiakasNimi).toString();
+            listalla = listalla + asiakaslista.get(asiakasNimi).toString();
         }
 
         return listalla;
@@ -93,12 +94,15 @@ public class Asiakastoiminnot {
         /**
          * Lisätään uusi asiakas
          */
-        uusiAsiakas.setAsiakasNumero(Integer.toString(suurinAsiakasnumero++));
-        asiakaslista.put(uusiAsiakas.getAsiakasNimi(), uusiAsiakas);
-        return uusiAsiakas.getAsiakasNimi();
+        if (uusiAsiakas != null) {
+            uusiAsiakas.setAsiakasNumero(Integer.toString(suurinAsiakasnumero++));
+            asiakaslista.put(uusiAsiakas.getAsiakasNimi(), uusiAsiakas);
+            return uusiAsiakas.getAsiakasNimi();
+        }
+        return null;
     }
 
-    public void listaltaTiedostoon() {
+    public void listaltaTiedostoon() throws IOException {
         tiedostostaLuetut.clear();
         for (String asiakasNimi : asiakaslista.keySet()) {
             Asiakastiedot a = asiakaslista.get(asiakasNimi);
@@ -108,6 +112,7 @@ public class Asiakastoiminnot {
                     + ";" + a.getAsiakkaaksitulopvm() + ";" + a.getTila());
 
         }
+        tiedosto.kirjoitaTiedostoon(tiedostostaLuetut);
 
 
     }

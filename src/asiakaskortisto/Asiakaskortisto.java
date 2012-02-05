@@ -26,7 +26,8 @@ public class Asiakaskortisto {
             switch (valinta) {
                 case 0: //Lopetus
                     System.out.println("Ohjelma suljetaan");
-                    //todo: kirjoitetaan asiakkaat tiedostoon
+                    /** Lopuksi kirjoitetaan asiakkaat tiedostoon */
+                    asiakas.listaltaTiedostoon();
                     lopetus = true;
                     break;
                 case 1: //Asiakastoiminnot
