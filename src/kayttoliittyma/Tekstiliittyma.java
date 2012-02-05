@@ -61,9 +61,11 @@ public class Tekstiliittyma {
         String puhelin = lukija.nextLine();
         System.out.print("Anna yhteyshenkilön nimi:");
         String yhteyshenkilo = lukija.nextLine();
+         
+        //todo Tarkasta syöte
         
-        return new Asiakastiedot("g", nimi, katuosoite, talonnumero, 
-                postinumero, toimipaikka, puhelin, yhteyshenkilo, null, 'N');
+        return new Asiakastiedot("", nimi, katuosoite +" " +talonnumero, 
+                postinumero+" "+toimipaikka, puhelin, yhteyshenkilo, "", 'N');
     }
 
     

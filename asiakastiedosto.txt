@@ -1,0 +1,3 @@
+9877;Ekaasiakas;Testikatu 1;00110 Ekala;010-989898;Erkki Eka;01-02_2012;N
+9878;Tokaasiakas;Testikatu 2;00220 Tokala;020-989898;Terttu Toka;02-02_2012;N
+9879;Kolmasasiakas;Testikatu 3;00330 Kolmala;030-989898;Karoliina Kolmas;03-02_2012;N

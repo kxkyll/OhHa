@@ -4,7 +4,6 @@
  */
 package asiakaskortisto;
 
-import java.util.Date;
 
 /** Asiakkaan tieto-olio
  *
@@ -12,29 +11,25 @@ import java.util.Date;
  */
 public class Asiakastiedot {
 /** Asiakkaasta talletettavat tiedot*/
-    private static int suurinasiakasnumero = 10000;
-    //* Asiakkaan tiedot tallettavsa olio
+    
+   
     private String asiakasNumero;
-    private String nimi;
-    private String kadunNimi;
-    private String talonNumero;
-    private String postinumero;
-    private String postitoimipaikka;
+    private String asiakasNimi;
+    private String katuOsoite;
+    private String postiOsoite;
     private String puhelinnumero;
     private String yhteyshenkilo;
-    private Date asiakkaaksitulopvm;
+    private String asiakkaaksitulopvm;
     private char tila; // N normaali, A arkistoitu
 
     public Asiakastiedot(
-            String numero, String nimi, String katuosoite, String talonnumero,
-            String postinumero, String toimipaikka, String puhelin,
-            String yhteyshenkilo, Object object, char tila) {
-        this.asiakasNumero = Integer.toString(suurinasiakasnumero++);
-        this.nimi = nimi;
-        this.kadunNimi = katuosoite;
-        this.talonNumero = talonnumero;
-        this.postinumero = postinumero;
-        this.postitoimipaikka = toimipaikka;
+            String asiakasnumero, String nimi, String katuosoite, 
+            String postiosoite, String puhelin,
+            String yhteyshenkilo, String asiakkaakstitulopvm, char tila) {
+        this.asiakasNumero = asiakasnumero;
+        this.asiakasNimi = nimi;
+        this.katuOsoite = katuosoite;
+        this.postiOsoite = postiosoite;
         this.puhelinnumero = puhelin;
         this.yhteyshenkilo = yhteyshenkilo;
         this.asiakkaaksitulopvm = null;
@@ -42,23 +37,53 @@ public class Asiakastiedot {
 
     }
 
+    public void setAsiakasNumero(String asiakasNumero) {
+        this.asiakasNumero = asiakasNumero;
+    }
+    
+    
     public String getAsiakasNumero() {
         return asiakasNumero;
     }
 
-    public String getNimi() {
-        return nimi;
+    public String getAsiakkaaksitulopvm() {
+        return asiakkaaksitulopvm;
     }
+
+    public String getKatuOsoite() {
+        return katuOsoite;
+    }
+
+    public String getPostiOsoite() {
+        return postiOsoite;
+    }
+
+    public String getPuhelinnumero() {
+        return puhelinnumero;
+    }
+
+    public char getTila() {
+        return tila;
+    }
+
+    public String getYhteyshenkilo() {
+        return yhteyshenkilo;
+    }
+
+    
+    public String getAsiakasNimi() {
+        return asiakasNimi;
+    }
+        
 
     @Override
     public String toString() {
-        return "" + String.format("%-10s", asiakasNumero)
-                + String.format("%-30s", nimi)
-                + String.format("%-30s", kadunNimi)
-                + String.format("%-5s", talonNumero)
-                + String.format("%-10s", postinumero)
-                + String.format("%-15s", postitoimipaikka)
-                + String.format("%-15s", puhelinnumero)
-                + String.format("%-30s", yhteyshenkilo) + "\n";
+      return "" + String.format("%-25s", asiakasNumero)
+                + String.format("%-25s", asiakasNimi)
+                + String.format("%-25s", katuOsoite)
+                + String.format("%-25s", postiOsoite)
+                + String.format("%-25s", puhelinnumero)
+                + String.format("%-25s", yhteyshenkilo) + "\n";
     }
+    
 }

@@ -12,22 +12,30 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Tiedostonkäsittelyrutiinit hoidetaan tiedostonkäsittelijässä
  * @author Kati
+ * Tiedostonkäsittelijä hoitaa asiakastietojen lukemisen 
+ *  tiedostosta listalle asiakaskortiston käynnistyksen yhteydessä, 
+ *  sekä tallentaa asiakastiedot tiedostoon asiakaskoristoa suljettaessa
  */
+
 public class TiedostonKasittelija {
 
+    /** tiedostonKayttaja on tiedostonkäsittelijää kutsuva olio */
     Object tiedostonKayttaja;
+    /** tiedostonNimi on käsiteltävän tiedoston nimi */
     String tiedostonNimi;
 
     public TiedostonKasittelija(Asiakastoiminnot tiedostonKayttaja) throws IOException {
         this.tiedostonKayttaja = tiedostonKayttaja;
         tiedostonNimi = tiedostonKayttaja.getTiedostonNimi();
+        
     }
 
+    
 
     public ArrayList<String> lataaAsiakkaatTiedostosta() throws IOException {
-        /** Ohjelman alussa luetaan asiakastiedot tiedostosta */
+        /** Ohjelman alussa luetaan asiakastiedot tiedostosta rivi kerrallaan 
+          * ja talletetaan ne ArrayList listalle nimeltä tiedostostaLuetut */
         File tiedosto = new File(tiedostonNimi);
         ArrayList<String> tiedostostaLuetut = new ArrayList<String>();
         try {

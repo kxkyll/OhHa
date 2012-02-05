@@ -4,6 +4,7 @@
  */
 package asiakaskortisto;
 
+import java.io.IOException;
 import kayttoliittyma.Tekstiliittyma;
 
 /** Asiakaskortisto toimii pääohjelmana ohjaten käyttöliittymältä 
@@ -12,11 +13,12 @@ import kayttoliittyma.Tekstiliittyma;
  */
 public class Asiakaskortisto {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         /** Asiakaskortiston pääohjelma */
         Asiakastoiminnot asiakas = new Asiakastoiminnot();
+        Kirjaudu kirjaudu = new Kirjaudu();
         Tekstiliittyma teksti = new Tekstiliittyma();
-
+        
 
         boolean lopetus = false;
         while (!lopetus) {
