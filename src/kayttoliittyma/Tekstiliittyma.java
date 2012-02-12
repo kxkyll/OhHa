@@ -5,18 +5,28 @@
 package kayttoliittyma;
 
 import asiakaskortisto.Asiakastiedot;
+import asiakaskortisto.Asiakastiedot.Tila;
+import asiakaskortisto.Kayttajatiedot;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Scanner;
 
 /**
  * Tekstipohjainen käyttöliittymä Asiakaskortisto-ohjelmaan
+ *
  * @author Kati
  */
 public class Tekstiliittyma {
-    /** Asiakaskortiston tektipohjainen valikko */
+
+    /**
+     * Asiakaskortiston tektipohjainen valikko
+     */
     static Scanner lukija = new Scanner(System.in);
-    
+
     public int tulostaValikko() {
-        /** Tulostetaan päävalikko */
+        /**
+         * Tulostetaan päävalikko
+         */
         System.out.println();
         System.out.println("Asiakaskortisto");
         System.out.println("1 - Asiakastoiminnot");
@@ -26,9 +36,11 @@ public class Tekstiliittyma {
         System.out.print("Anna valintasi: ");
         return Integer.parseInt(lukija.nextLine());
     }
-    
+
     public int tulostaAsiakasValikko() {
-        /** Tulostetaan asiakasvalikko */
+        /**
+         * Tulostetaan asiakasvalikko
+         */
         System.out.println();
         System.out.println("Asiakastoiminnot");
         System.out.println("1 - Listaa asiakkaat");
@@ -40,19 +52,33 @@ public class Tekstiliittyma {
         System.out.print("Anna valintasi: ");
         return Integer.parseInt(lukija.nextLine());
     }
-    
-    
-        public Asiakastiedot kysyAsiakastiedot() {
-            /** Kysytään asiakastiedot uutta asiakasta lisättäessä */
+
+    public Asiakastiedot kysyAsiakastiedot() {
+        /**
+         * Kysytään asiakastiedot uutta asiakasta lisättäessä
+         */
+        Calendar tamaPaiva = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+
+
         System.out.println("Asiakastoiminnot");
         System.out.println("Lisää asiakas");
         System.out.println("");
-        System.out.print("Anna asiakkaan nimi: ");
-        String nimi = lukija.nextLine();
-        System.out.print("Anna asiakkaan katuosoite: ");
-        String katuosoite = lukija.nextLine();
-        System.out.print("Anna asiakkaan talonnumero: ");
-        String talonnumero = lukija.nextLine();
+        String nimi = "";
+        while (nimi.equals("")) {
+            System.out.print("Anna asiakkaan nimi: ");
+            nimi = lukija.nextLine();
+        }
+        String katuosoite = "";
+        while (katuosoite.equals("")) {
+            System.out.print("Anna asiakkaan katuosoite: ");
+            katuosoite = lukija.nextLine();
+        }
+        String talonnumero = "";
+        while (talonnumero.equals("")) {
+            System.out.print("Anna asiakkaan talonnumero: ");
+            talonnumero = lukija.nextLine();
+        }
         System.out.print("Anna asiakkaan postinumero: ");
         String postinumero = lukija.nextLine();
         System.out.print("Anna asiakkaan postitoimipaikka: ");
@@ -61,12 +87,23 @@ public class Tekstiliittyma {
         String puhelin = lukija.nextLine();
         System.out.print("Anna yhteyshenkilön nimi:");
         String yhteyshenkilo = lukija.nextLine();
-         
-        //todo Tarkasta syöte
-        
-        return new Asiakastiedot("", nimi, katuosoite +" " +talonnumero, 
-                postinumero+" "+toimipaikka, puhelin, yhteyshenkilo, "", 'N');
+        String asiakkaaksituloPvm = formatter.format(tamaPaiva.getTime());
+
+        return new Asiakastiedot("", nimi, katuosoite + " " + talonnumero,
+                postinumero + " " + toimipaikka, puhelin, yhteyshenkilo, asiakkaaksituloPvm, Tila.NORMAALI);
     }
 
-    
+    public Kayttajatiedot kysyKirjautumisTiedot() {
+        String kayttajatunnus = "";
+        String salasana = "";
+        while (kayttajatunnus.equals("")) {
+            System.out.print("Anna käyttäjätunnus: ");
+            kayttajatunnus = lukija.nextLine();
+        }
+        while (salasana.equals("")) {
+            System.out.print("Anna salasana: ");
+            salasana = lukija.nextLine();
+        }
+        return new Kayttajatiedot(kayttajatunnus, salasana);
+    }
 }

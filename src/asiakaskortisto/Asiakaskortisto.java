@@ -4,21 +4,45 @@
  */
 package asiakaskortisto;
 
+import asiakaskortisto.Kayttajatiedot.Rooli;
 import java.io.IOException;
 import kayttoliittyma.Tekstiliittyma;
 
-/** Asiakaskortisto toimii pääohjelmana ohjaten käyttöliittymältä 
- *  tulevia valintoja eteenpäin
+/**
+ * Asiakaskortisto toimii pääohjelmana ohjaten käyttöliittymältä tulevia
+ * valintoja eteenpäin
+ *
  * @author Kati
  */
 public class Asiakaskortisto {
 
     public static void main(String[] args) throws IOException {
-        /** Asiakaskortiston pääohjelma */
-        Asiakastoiminnot asiakas = new Asiakastoiminnot();
-        Kirjaudu kirjaudu = new Kirjaudu();
+        /**
+         * Asiakaskortiston pääohjelma
+         */
+         Asiakastoiminnot asiakas = new Asiakastoiminnot();
         Tekstiliittyma teksti = new Tekstiliittyma();
+        Kirjaudu kirjaudu = new Kirjaudu();
+        int kirjautumisLaskuri = 0;
+        Rooli kirjautujanrooli = null;
         
+        while (kirjautumisLaskuri < 3) {
+           
+            kirjautujanrooli = kirjaudu.tarkistaKirjautuminen(teksti.kysyKirjautumisTiedot());
+            if (kirjautujanrooli != null) {
+                System.out.println("kirjautuminen ok, kirjautujanrooli ei ole null");
+                break;
+            } else {
+                System.out.println("Antamasi kirjautumistiedot eivät ole oikein");
+                kirjautumisLaskuri++;
+            }
+        }
+        if (kirjautujanrooli == null) {
+            System.out.println("Kirjautuminen ei onnistunut");
+            System.exit(0);
+        }
+
+
 
         boolean lopetus = false;
         while (!lopetus) {
@@ -26,8 +50,10 @@ public class Asiakaskortisto {
             switch (valinta) {
                 case 0: //Lopetus
                     System.out.println("Ohjelma suljetaan");
-                    /** Lopuksi kirjoitetaan asiakkaat tiedostoon */
-                    asiakas.listaltaTiedostoon();
+                    /**
+                     * Lopuksi kirjoitetaan asiakkaat tiedostoon
+                     */
+                    asiakas.asiakkaatTiedostoon();
                     lopetus = true;
                     break;
                 case 1: //Asiakastoiminnot
@@ -41,7 +67,10 @@ public class Asiakaskortisto {
     }
 
     private static void kasitteleAsiakasValinta(int asiakasValinta, Asiakastoiminnot asiakas, Tekstiliittyma teksti) {
-        /** Ohjaa käyttäjän valinnan perusteella pyynnön eteenpäin asiakastoiminnolle*/
+        /**
+         * Ohjaa käyttäjän valinnan perusteella pyynnön eteenpäin
+         * asiakastoiminnolle
+         */
         switch (asiakasValinta) {
             case 0: // Palaa päävalikkoon
                 System.out.println("Palataan päävalikkoon");
@@ -54,11 +83,11 @@ public class Asiakaskortisto {
                 // todo kysy hakuehto ja hae
                 break;
             case 3: // Lisää asiakas
-                
+
                 asiakas.lisaaAsiakas(teksti.kysyAsiakastiedot());
                 System.out.println("Asiakas lisätty");
-               //asiakas.haeAsiakas();
-                
+                //asiakas.haeAsiakas();
+
                 break;
             case 4: // Poista asiakas 
                 System.out.println("Siirry poistonäytölle");
@@ -75,7 +104,9 @@ public class Asiakaskortisto {
     }
 
     private static void tulostaAsiakaslista(String asiakasLista) {
-        /** tulostetaan asiakaslista */
+        /**
+         * tulostetaan asiakaslista
+         */
         System.out.println(asiakasLista);
     }
 }

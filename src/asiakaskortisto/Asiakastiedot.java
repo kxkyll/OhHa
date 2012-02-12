@@ -4,6 +4,9 @@
  */
 package asiakaskortisto;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 
 /** Asiakkaan tieto-olio
  *
@@ -20,21 +23,35 @@ public class Asiakastiedot {
     private String puhelinnumero;
     private String yhteyshenkilo;
     private String asiakkaaksitulopvm;
-    private char tila; // N normaali, A arkistoitu
+    private Tila tila; // N normaali, A arkistoitu
+    
+    public enum Tila {
+        NORMAALI {
+    @Override
+    public String toString() {        return "NORMAALI";    }}, 
+        ARKISTOITU  {
+    @Override
+    public String toString() {        return "ARKISTOITU";    }}
+    };
+    
+    
+//    Calendar tamaPaiva = Calendar.getInstance();
+//    SimpleDateFormat formatter = new SimpleDateFormat ("dd.MM.yyyy");
+
 
     public Asiakastiedot(
             String asiakasnumero, String nimi, String katuosoite, 
             String postiosoite, String puhelin,
-            String yhteyshenkilo, String asiakkaakstitulopvm, char tila) {
+            String yhteyshenkilo, String pvm, Tila tila) {
         this.asiakasNumero = asiakasnumero;
         this.asiakasNimi = nimi;
         this.katuOsoite = katuosoite;
         this.postiOsoite = postiosoite;
         this.puhelinnumero = puhelin;
         this.yhteyshenkilo = yhteyshenkilo;
-        this.asiakkaaksitulopvm = null;
+        this.asiakkaaksitulopvm = pvm;
+        //this.asiakkaaksitulopvm = formatter.format(tamaPaiva.getTime());
         this.tila = tila;
-
     }
 
     public void setAsiakasNumero(String asiakasNumero) {
@@ -62,7 +79,7 @@ public class Asiakastiedot {
         return puhelinnumero;
     }
 
-    public char getTila() {
+    public Tila getTila() {
         return tila;
     }
 

@@ -1,4 +1,9 @@
-9878;Tokaasiakas;Testikatu 2;00220 Tokala;020-989898;Terttu Toka;null;N
-10000;Ekalisatty;Lisakatu 6;98789 Takamaki;989-656787;Anne Yrjo;null;N
-9877;Ekaasiakas;Testikatu 1;00110 Ekala;010-989898;Erkki Eka;null;N
-9879;Kolmasasiakas;Testikatu 3;00330 Kolmala;030-989898;Karoliina Kolmas;null;N
+9878;Tokaasiakas;Testikatu 2;00220 Tokala;020-989898;Terttu Toka;10.02.2012;NORMAALI
+10000;IhanUusi Oy;Ikkunatie 4;00987 Vuosaari;878-456789;Ville Vilu;12.02.2012;NORMAALI
+10000;Ekalisatty;Lisakatu 6;98789 Takamaki;989-656787;Anne Yrjo;01.02.2012;NORMAALI
+10000;VikaVille;Inkeroinen 4;987098 Viimela;987-567890;Vinha Viipottaja;08.01.2012;NORMAALI
+9877;Ekaasiakas;Testikatu 1;00110 Ekala;010-989898;Erkki Eka;12.02.2012;NORMAALI
+10000;Kissala;oijlkj 6;98765 Innala;876-3456;Keijo Kissa;12.02.2012;NORMAALI
+10000;Ihqu Oy;Rantatie 6;98765 Rantala;987-678987;Ville Rannikko;12.02.2012;NORMAALI
+10000;Uusi;Uusitie 3;98789 Uusimaa;876-654325;Ulla Uutela;12.02.2012;NORMAALI
+9879;Kolmasasiakas;Testikatu 3;00330 Kolmala;030-989898;Karoliina Kolmas;12.02.2012;NORMAALI
