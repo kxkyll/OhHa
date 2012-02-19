@@ -12,5 +12,5 @@
 10000;Asiakas;Lumikuja 8 A6;98765 Pikkala;343-454646;Janne Joku;19.02.2012;ARKISTOITU
 10008;Ihqu Oy;Rantatie 6;98765 Rantala;987-678987;Ville Rannikko;12.02.2012;NORMAALI
 10015;Lumilinko Oy;Tunturitie 4;01110 Paakaupunki;010-234235;Lasse Linkola;19.02.2012;NORMAALI
-10009;Uusi;Uusitie 3;98789 Uusimaa;876-654325;Ulla Uutela;12.02.2012;NORMAALI
 10007;Kissala;oijlkj 6;98765 Innala;876-3456;Keijo Kissa;12.02.2012;NORMAALI
+10009;Uusi;Uusitie 3;98789 Uusimaa;876-654325;Ulla Uutela;12.02.2012;NORMAALI

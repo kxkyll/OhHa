@@ -57,6 +57,9 @@ public class AsiakastiedostonKasittelija {
     }
 
     private HashMap<String,Asiakas> laitaAsiakkaatListalle() {
+/**
+* Luodaan tiedostosta luetuista riveistä asiakaslista
+*/
         asiakaslista = new HashMap<String, Asiakas>();
         for (String luettu : tiedostonRivit) {
             Asiakas uusiAsiakas = luoAsiakas(luettu);
@@ -92,6 +95,10 @@ public class AsiakastiedostonKasittelija {
     }
  
     public void kirjoitaAsiakkaatTiedostoon(HashMap<String,Asiakas> lista) throws IOException {
+        /**
+         * Muokataan ohjelmansuoritusaikana mahdollisesti muuttuneet asiakastiedot
+         * riveiksi, jotka voidaan kirjoittaa asiakastiedostoon
+         */
         tiedostonRivit.clear();
         for (String asiakasNimi : lista.keySet()) {
             Asiakas a = lista.get(asiakasNimi);
@@ -107,7 +114,9 @@ public class AsiakastiedostonKasittelija {
     }
     
     public void kirjoitaTiedostoon() throws IOException {
-        /** Ohjelman lopuksi kirjoitetaan asiakastiedot tiedostoon*/
+        /** 
+         * Ohjelman lopuksi kirjoitetaan asiakastiedot tiedostoon
+         */
         File tiedosto = new File(tiedostonNimi);
         FileWriter kirjoittaja = new FileWriter(tiedosto);
 
@@ -118,7 +127,9 @@ public class AsiakastiedostonKasittelija {
     }
 
     public void luoTiedosto() throws IOException {
-        /** Jos tiedostoa ei ole  olemassa, luodaan tyhjä tiedosto */
+        /** 
+         * Jos tiedostoa ei ole  olemassa, luodaan tyhjä tiedosto 
+         */
         FileWriter kirjoittaja = null;
         try {
             File tiedosto = new File(tiedostonNimi);

@@ -32,9 +32,25 @@ public class Asiakkaat {
         asiakkaatJarjestysListalle();
         seuraavaAsiakasnumero = haeSeuraavaAsiakasnumero();
     }
+    public Asiakkaat (String asiakastiedosto) throws IOException {
+        this.tiedostonNimi = asiakastiedosto;
+        tiedosto = new AsiakastiedostonKasittelija(this);
+        asiakaslista = tiedosto.lueAsiakkaatTiedostosta();
+        asiakkaatJarjestysListalle();
+        seuraavaAsiakasnumero = haeSeuraavaAsiakasnumero();
+    }
 
     public String getTiedostonNimi() {
         return tiedostonNimi;
+    }
+    
+    public int getKaikkienAsiakkaidenMaara() {
+        int maara = 0;
+        for (String asiakasNimi : asiakaslista.keySet()) {
+            maara++;
+        }
+        System.out.println("Määrä: " +maara);
+        return maara;
     }
 
     public String listaaAsiakkaat() {
