@@ -4,9 +4,9 @@
  */
 package kayttoliittyma;
 
-import asiakaskortisto.Asiakastiedot;
-import asiakaskortisto.Asiakastiedot.Tila;
-import asiakaskortisto.Kayttajatiedot;
+import asiakaskortisto.Asiakas;
+import asiakaskortisto.Asiakas.Tila;
+import asiakaskortisto.Kayttaja;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Scanner;
@@ -53,7 +53,7 @@ public class Tekstiliittyma {
         return Integer.parseInt(lukija.nextLine());
     }
 
-    public Asiakastiedot kysyAsiakastiedot() {
+    public Asiakas kysyAsiakastiedot() {
         /**
          * Kysytään asiakastiedot uutta asiakasta lisättäessä
          */
@@ -79,21 +79,68 @@ public class Tekstiliittyma {
             System.out.print("Anna asiakkaan talonnumero: ");
             talonnumero = lukija.nextLine();
         }
-        System.out.print("Anna asiakkaan postinumero: ");
-        String postinumero = lukija.nextLine();
-        System.out.print("Anna asiakkaan postitoimipaikka: ");
-        String toimipaikka = lukija.nextLine();
-        System.out.print("Anna puhelinnumero:");
-        String puhelin = lukija.nextLine();
-        System.out.print("Anna yhteyshenkilön nimi:");
-        String yhteyshenkilo = lukija.nextLine();
+        String postinumero = "";
+        while (postinumero.equals("")) {
+            System.out.print("Anna asiakkaan postinumero: ");
+
+            postinumero = lukija.nextLine();
+        }
+        String toimipaikka = "";
+        while (toimipaikka.equals("")) {
+            System.out.print("Anna asiakkaan postitoimipaikka: ");
+            toimipaikka = lukija.nextLine();
+        }
+        String puhelin = "";
+        while (puhelin.equals("")) {
+            System.out.print("Anna puhelinnumero:");
+            puhelin = lukija.nextLine();
+        }
+        String yhteyshenkilo = "";
+        while (yhteyshenkilo.equals("")) {
+            System.out.print("Anna yhteyshenkilön nimi:");
+            yhteyshenkilo = lukija.nextLine();
+        }
         String asiakkaaksituloPvm = formatter.format(tamaPaiva.getTime());
 
-        return new Asiakastiedot("", nimi, katuosoite + " " + talonnumero,
+        return new Asiakas(
+                "", nimi, katuosoite + " " + talonnumero,
                 postinumero + " " + toimipaikka, puhelin, yhteyshenkilo, asiakkaaksituloPvm, Tila.NORMAALI);
     }
 
-    public Kayttajatiedot kysyKirjautumisTiedot() {
+    public int kysyHakutapa() {
+        System.out.println("Haetaanko asiakasnumerolla vai asiakkaan nimellä ?");
+        int hakutapa = 0;
+        while (hakutapa != 1 && hakutapa != 2) {
+            System.out.println("1 - Hae asiakasnumerolla");
+            System.out.println("2 - Hae asiakkaan nimellä");
+            System.out.print("Anna valintasi: ");
+            hakutapa = Integer.parseInt(lukija.nextLine());
+        }
+        return hakutapa;
+
+    }
+    
+    public String kysyAsiakasnumero() {
+        String asiakasnumero = "";
+        while (asiakasnumero.equals("")) {
+            System.out.print("Anna asiakasnumero:");
+            asiakasnumero =lukija.nextLine();
+        }
+        return asiakasnumero;
+
+    }
+    
+     public String kysyAsiakkaanNimi() {
+        String asiakasnimi = "";
+        while (asiakasnimi.equals("")) {
+            System.out.print("Anna asiakkaan nimi:");
+            asiakasnimi =lukija.nextLine();
+        }
+        return asiakasnimi;
+
+    }
+
+    public Kayttaja kysyKirjautumisTiedot() {
         String kayttajatunnus = "";
         String salasana = "";
         while (kayttajatunnus.equals("")) {
@@ -104,6 +151,6 @@ public class Tekstiliittyma {
             System.out.print("Anna salasana: ");
             salasana = lukija.nextLine();
         }
-        return new Kayttajatiedot(kayttajatunnus, salasana);
+        return new Kayttaja(kayttajatunnus, salasana);
     }
 }

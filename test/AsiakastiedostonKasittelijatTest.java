@@ -10,9 +10,9 @@ import static org.junit.Assert.*;
  *
  * @author Kati
  */
-public class AsiakastoiminnotTest {
+public class AsiakastiedostonKasittelijatTest {
     
-    public AsiakastoiminnotTest() {
+    public AsiakastiedostonKasittelijatTest() {
     }
 
     @BeforeClass
@@ -30,10 +30,9 @@ public class AsiakastoiminnotTest {
     @After
     public void tearDown() {
     }
-    
-    
-     @Test
-     public void lisaaYksiAsiakas() {}
-//     return new Asiakastiedot("", "AinoaAsiakas Oy", "Asiakaskatu" + " " + "4 A",
-//                "70210" + " " + "Asikkala", "010-210710", "Atte Oikea", asiakkaaksituloPvm, Tila.NORMAALI);
+    // TODO add test methods here.
+    // The methods must be annotated with annotation @Test. For example:
+    //
+    // @Test
+    // public void hello() {}
 }

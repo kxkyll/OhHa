@@ -9,7 +9,7 @@ package asiakaskortisto;
  *
  * @author Kati
  */
-public class Kayttajatiedot {
+public class Kayttaja {
 /** Käyttäjän käyttäjätunnuksen, salasanan ja roolin tiedot*/
     
    
@@ -17,12 +17,12 @@ public class Kayttajatiedot {
     private String salasana;
     private Rooli rooli;
 
-    public Kayttajatiedot(String kayttajaTunnus, String salasana) {
+    public Kayttaja(String kayttajaTunnus, String salasana) {
         this.kayttajaTunnus = kayttajaTunnus;
         this.salasana = salasana;
     }
 
-    public Kayttajatiedot(String kayttajaTunnus, String salasana, Rooli rooli) {
+    public Kayttaja(String kayttajaTunnus, String salasana, Rooli rooli) {
         this.kayttajaTunnus = kayttajaTunnus;
         this.salasana = salasana;
         this.rooli = rooli;

@@ -4,9 +4,9 @@
  */
 package tiedostonkasittelija;
 
-import asiakaskortisto.Asiakastiedot;
-import asiakaskortisto.Asiakastiedot.Tila;
-import asiakaskortisto.Asiakastoiminnot;
+import asiakaskortisto.Asiakas;
+import asiakaskortisto.Asiakas.Tila;
+import asiakaskortisto.Asiakkaat;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -28,16 +28,16 @@ public class AsiakastiedostonKasittelija {
     /** tiedostonNimi on käsiteltävän tiedoston nimi */
     private String tiedostonNimi;
     private ArrayList<String> tiedostonRivit;
-    private HashMap<String, Asiakastiedot> asiakaslista;
+    private HashMap<String, Asiakas> asiakaslista;
 
-    public AsiakastiedostonKasittelija(Asiakastoiminnot tiedostonKayttaja) throws IOException {
+    public AsiakastiedostonKasittelija(Asiakkaat tiedostonKayttaja) throws IOException {
         this.tiedostonKayttaja = tiedostonKayttaja;
         tiedostonNimi = tiedostonKayttaja.getTiedostonNimi();
         
     }
         
 
-    public HashMap<String,Asiakastiedot> lueAsiakkaatTiedostosta() throws IOException {
+    public HashMap<String,Asiakas> lueAsiakkaatTiedostosta() throws IOException {
         /** Ohjelman alussa luetaan asiakastiedot tiedostosta rivi kerrallaan 
           * ja talletetaan ne ArrayList listalle nimeltä tiedostostaLuetut */
         File tiedosto = new File(tiedostonNimi);
@@ -56,10 +56,10 @@ public class AsiakastiedostonKasittelija {
        
     }
 
-    private HashMap<String,Asiakastiedot> laitaAsiakkaatListalle() {
-        asiakaslista = new HashMap<String, Asiakastiedot>();
+    private HashMap<String,Asiakas> laitaAsiakkaatListalle() {
+        asiakaslista = new HashMap<String, Asiakas>();
         for (String luettu : tiedostonRivit) {
-            Asiakastiedot uusiAsiakas = luoAsiakas(luettu);
+            Asiakas uusiAsiakas = luoAsiakas(luettu);
             //System.out.println("uusi asiakas: " + uusiAsiakas);
             if (uusiAsiakas != null) {
                 asiakaslista.put(uusiAsiakas.getAsiakasNimi(), uusiAsiakas);
@@ -69,7 +69,7 @@ public class AsiakastiedostonKasittelija {
         return asiakaslista;
     }
 
-    private Asiakastiedot luoAsiakas(String luettu) {
+    private Asiakas luoAsiakas(String luettu) {
         /**
          * Luo tiedostoista luetuista asiakastiedoston jokaisesta rivistä
          * asiakastiedot olion
@@ -84,17 +84,17 @@ public class AsiakastiedostonKasittelija {
             String yhteyshenkilo = taulukko[5];
             String asiakkaaksitulopvm = taulukko[6];
             String tila = taulukko[7];
-            return new Asiakastiedot(asiakasNumero, asiakasNimi, katuosoite, 
+            return new Asiakas(asiakasNumero, asiakasNimi, katuosoite, 
                     postiosoite, puhelinnumero, yhteyshenkilo, 
                     asiakkaaksitulopvm, Tila.valueOf(tila));
         }
         return null;
     }
  
-    public void kirjoitaAsiakkaatTiedostoon(HashMap<String,Asiakastiedot> lista) throws IOException {
+    public void kirjoitaAsiakkaatTiedostoon(HashMap<String,Asiakas> lista) throws IOException {
         tiedostonRivit.clear();
         for (String asiakasNimi : lista.keySet()) {
-            Asiakastiedot a = lista.get(asiakasNimi);
+            Asiakas a = lista.get(asiakasNimi);
             tiedostonRivit.add(a.getAsiakasNumero() + ";" + a.getAsiakasNimi()
                     + ";" + a.getKatuOsoite() + ";" + a.getPostiOsoite()
                     + ";" + a.getPuhelinnumero() + ";" + a.getYhteyshenkilo()

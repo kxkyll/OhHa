@@ -4,15 +4,12 @@
  */
 package asiakaskortisto;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 
 /** Asiakkaan tieto-olio
  *
  * @author Kati
  */
-public class Asiakastiedot {
+public class Asiakas implements Comparable<Asiakas>{
 /** Asiakkaasta talletettavat tiedot*/
     
    
@@ -35,11 +32,8 @@ public class Asiakastiedot {
     };
     
     
-//    Calendar tamaPaiva = Calendar.getInstance();
-//    SimpleDateFormat formatter = new SimpleDateFormat ("dd.MM.yyyy");
 
-
-    public Asiakastiedot(
+    public Asiakas(
             String asiakasnumero, String nimi, String katuosoite, 
             String postiosoite, String puhelin,
             String yhteyshenkilo, String pvm, Tila tila) {
@@ -50,7 +44,6 @@ public class Asiakastiedot {
         this.puhelinnumero = puhelin;
         this.yhteyshenkilo = yhteyshenkilo;
         this.asiakkaaksitulopvm = pvm;
-        //this.asiakkaaksitulopvm = formatter.format(tamaPaiva.getTime());
         this.tila = tila;
     }
 
@@ -100,7 +93,17 @@ public class Asiakastiedot {
                 + String.format("%-25s", katuOsoite)
                 + String.format("%-25s", postiOsoite)
                 + String.format("%-25s", puhelinnumero)
-                + String.format("%-25s", yhteyshenkilo) + "\n";
+                + 
+              String.format("%-25s", yhteyshenkilo) + "\n";
     }
-    
+
+    @Override
+    public int compareTo(Asiakas toinen) {
+	if (this.getAsiakasNumero().equals(toinen.getAsiakasNumero())) {
+	    return this.getAsiakasNumero().compareTo(toinen.getAsiakasNumero());
+	} else {
+	    return this.getAsiakasNimi().compareTo(toinen.getAsiakasNimi());
+	}
+    }
+
 }

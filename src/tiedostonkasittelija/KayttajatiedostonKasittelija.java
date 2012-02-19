@@ -4,8 +4,8 @@
  */
 package tiedostonkasittelija;
 
-import asiakaskortisto.Kayttajatiedot;
-import asiakaskortisto.Kayttajatiedot.Rooli;
+import asiakaskortisto.Kayttaja;
+import asiakaskortisto.Kayttaja.Rooli;
 import asiakaskortisto.Kirjaudu;
 import java.io.File;
 import java.io.FileWriter;
@@ -30,14 +30,14 @@ public class KayttajatiedostonKasittelija {
      */
     private String tiedostonNimi;
     private ArrayList<String> tiedostonRivit;
-    private HashMap<String, Kayttajatiedot> kayttajalista;
+    private HashMap<String, Kayttaja> kayttajalista;
 
     public KayttajatiedostonKasittelija(Kirjaudu kirjautumisKayttaja) {
         this.tiedostonKayttaja = kirjautumisKayttaja;
         tiedostonNimi = kirjautumisKayttaja.getTiedostonNimi();
     }
 
-    public HashMap<String, Kayttajatiedot> lueTiedostosta() throws IOException {
+    public HashMap<String, Kayttaja> lueTiedostosta() throws IOException {
         /**
          * Ohjelman alussa luetaan käyttäjätiedot tiedostosta rivi kerrallaan ja
          * talletetaan ne listalle nimeltä tiedostostaLuetut
@@ -58,10 +58,10 @@ public class KayttajatiedostonKasittelija {
 
     }
 
-    private HashMap<String, Kayttajatiedot> laitaKayttajatListalle() {
-        kayttajalista = new HashMap<String, Kayttajatiedot>();
+    private HashMap<String, Kayttaja> laitaKayttajatListalle() {
+        kayttajalista = new HashMap<String, Kayttaja>();
         for (String luettu : tiedostonRivit) {
-            Kayttajatiedot uusiKayttaja = luoKayttaja(luettu);
+            Kayttaja uusiKayttaja = luoKayttaja(luettu);
     
             if (uusiKayttaja != null) {
                 kayttajalista.put(uusiKayttaja.getKayttajaTunnus(), uusiKayttaja);
@@ -71,7 +71,7 @@ public class KayttajatiedostonKasittelija {
         return kayttajalista;
     }
 
-    private Kayttajatiedot luoKayttaja(String luettu) {
+    private Kayttaja luoKayttaja(String luettu) {
         /**
          * Luo tiedostoista luetuista asiakastiedoston jokaisesta rivistä
          * asiakastiedot olion
@@ -82,15 +82,15 @@ public class KayttajatiedostonKasittelija {
             String salasana = taulukko[1];
             String teksti = taulukko[2];
 
-            return new Kayttajatiedot(kayttajaTunnus, salasana, Rooli.valueOf(teksti));
+            return new Kayttaja(kayttajaTunnus, salasana, Rooli.valueOf(teksti));
         }
         return null;
     }
 
-    public void kirjoitaKayttajatTiedostoon(HashMap<String, Kayttajatiedot> lista) throws IOException {
+    public void kirjoitaKayttajatTiedostoon(HashMap<String, Kayttaja> lista) throws IOException {
         tiedostonRivit.clear();
         for (String kayttaja : lista.keySet()) {
-            Kayttajatiedot k = lista.get(kayttaja);
+            Kayttaja k = lista.get(kayttaja);
             tiedostonRivit.add(k.getKayttajaTunnus() + ";" + k.getSalasana()
                     + ";" + k.getRooli().toString());
         }
