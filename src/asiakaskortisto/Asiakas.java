@@ -51,6 +51,27 @@ public class Asiakas implements Comparable<Asiakas>{
         this.asiakasNumero = asiakasNumero;
     }
     
+    public void setTilaArkistoiduksi () {
+        this.tila = Tila.ARKISTOITU;
+    }
+
+    public void setKatuOsoite(String katuOsoite) {
+        this.katuOsoite = katuOsoite;
+    }
+
+    public void setPostiOsoite(String postiOsoite) {
+        this.postiOsoite = postiOsoite;
+    }
+
+    public void setPuhelinnumero(String puhelinnumero) {
+        this.puhelinnumero = puhelinnumero;
+    }
+
+    public void setYhteyshenkilo(String yhteyshenkilo) {
+        this.yhteyshenkilo = yhteyshenkilo;
+    }
+    
+    
     
     public String getAsiakasNumero() {
         return asiakasNumero;

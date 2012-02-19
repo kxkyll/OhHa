@@ -74,22 +74,14 @@ public class Tekstiliittyma {
             System.out.print("Anna asiakkaan katuosoite: ");
             katuosoite = lukija.nextLine();
         }
-        String talonnumero = "";
-        while (talonnumero.equals("")) {
-            System.out.print("Anna asiakkaan talonnumero: ");
-            talonnumero = lukija.nextLine();
-        }
-        String postinumero = "";
-        while (postinumero.equals("")) {
-            System.out.print("Anna asiakkaan postinumero: ");
+        
+        String postiosoite = "";
+        while (postiosoite.equals("")) {
+            System.out.print("Anna asiakkaan postiosoite: ");
 
-            postinumero = lukija.nextLine();
+            postiosoite = lukija.nextLine();
         }
-        String toimipaikka = "";
-        while (toimipaikka.equals("")) {
-            System.out.print("Anna asiakkaan postitoimipaikka: ");
-            toimipaikka = lukija.nextLine();
-        }
+        
         String puhelin = "";
         while (puhelin.equals("")) {
             System.out.print("Anna puhelinnumero:");
@@ -103,8 +95,8 @@ public class Tekstiliittyma {
         String asiakkaaksituloPvm = formatter.format(tamaPaiva.getTime());
 
         return new Asiakas(
-                "", nimi, katuosoite + " " + talonnumero,
-                postinumero + " " + toimipaikka, puhelin, yhteyshenkilo, asiakkaaksituloPvm, Tila.NORMAALI);
+                "", nimi, katuosoite,
+                postiosoite, puhelin, yhteyshenkilo, asiakkaaksituloPvm, Tila.NORMAALI);
     }
 
     public int kysyHakutapa() {
@@ -119,25 +111,57 @@ public class Tekstiliittyma {
         return hakutapa;
 
     }
-    
+
     public String kysyAsiakasnumero() {
         String asiakasnumero = "";
         while (asiakasnumero.equals("")) {
             System.out.print("Anna asiakasnumero:");
-            asiakasnumero =lukija.nextLine();
+            asiakasnumero = lukija.nextLine();
         }
         return asiakasnumero;
 
     }
-    
-     public String kysyAsiakkaanNimi() {
+
+    public String kysyAsiakkaanNimi() {
         String asiakasnimi = "";
         while (asiakasnimi.equals("")) {
             System.out.print("Anna asiakkaan nimi:");
-            asiakasnimi =lukija.nextLine();
+            asiakasnimi = lukija.nextLine();
         }
         return asiakasnimi;
 
+    }
+
+    public String kysyPoistettavaAsiakas() {
+        System.out.println("Asiakkaan poisto");
+        return kysyAsiakasnumero();
+    }
+
+    public Asiakas kysyMuutettavaAsiakas() {
+        System.out.println("Anna vain muuttunut asiakastieto: ");
+        System.out.println("muut voit ohittaa enterin painalluksella");
+        
+        System.out.print("Anna asiakkaan katuosoite: ");
+        String katuosoite = lukija.nextLine();
+
+
+        System.out.print("Anna asiakkaan postiosoite: ");
+
+        String postiosoite = lukija.nextLine();
+
+                System.out.print("Anna puhelinnumero:");
+        String puhelin = lukija.nextLine();
+
+     
+        System.out.print("Anna yhteyshenkilön nimi:");
+        String yhteyshenkilo = lukija.nextLine();
+        
+        
+        
+        return new Asiakas(
+                "", "", katuosoite,
+                postiosoite, puhelin, yhteyshenkilo, "", Tila.NORMAALI);
+     
     }
 
     public Kayttaja kysyKirjautumisTiedot() {

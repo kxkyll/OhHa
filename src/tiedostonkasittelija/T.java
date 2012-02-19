@@ -8,6 +8,6 @@ package tiedostonkasittelija;
  *
  * @author Kati
  */
-class T {
+public class T {
     
 }

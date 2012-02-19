@@ -7,6 +7,7 @@ package asiakaskortisto;
 import java.io.IOException;
 import java.util.*;
 import tiedostonkasittelija.AsiakastiedostonKasittelija;
+import asiakaskortisto.Asiakas.Tila;
 
 /**
  * Asiakaskortisto-ohjelman sovelluslogiikka
@@ -43,9 +44,6 @@ public class Asiakkaat {
         SortedSet<String> aakkostettu = new TreeSet<String>(asiakaslista.keySet());
         Iterator<String> it = aakkostettu.iterator();
 
-        
-
-
         String listalla =
                 "" + String.format("%-25s", "Asiakasnumero ")
                 + String.format("%-25s", "Asiakkaan nimi ")
@@ -56,20 +54,20 @@ public class Asiakkaat {
 
         // Tässä jokin ongelma, eka asiakasrivi siftaantuu noin 10 merkillä oikealle
         // muut tulostuvat oikein
-        
+
         while (it.hasNext()) {
-            
-            listalla = listalla + asiakaslista.get(it.next()).toString();
+            Asiakas a = asiakaslista.get(it.next());
+            if (a.getTila().equals(Tila.NORMAALI)) {
+                listalla = listalla + a.toString();
+            }
         }
-        
+    
 //        for (String asiakasNimi : asiakaslista.keySet()) {
 //            listalla = listalla + asiakaslista.get(asiakasNimi).toString();
 //        }
-
-        return listalla;
-    }
-
-    public String lisaaAsiakas(Asiakas uusiAsiakas) {
+    return listalla ;
+}
+public String lisaaAsiakas(Asiakas uusiAsiakas) {
         /**
          * Lisätään uusi asiakas
          */
@@ -83,6 +81,62 @@ public class Asiakkaat {
             return uusiAsiakas.getAsiakasNimi();
         }
         return null;
+    }
+    
+    public String poistaAsiakas(String poistettava) {
+        String viesti = "Poistettavaa asiakasta ei löytynyt";
+        for (Asiakas a : asiakaslistaNumeroittain) {
+            if (a.getAsiakasNumero().equals(poistettava)) {
+                a.setTilaArkistoiduksi();
+                return a.toString();
+            }
+        }
+        return viesti;
+    }
+    
+    public String muutaAsiakas (Asiakas vanha, Asiakas muutettu) {
+        Asiakas a = asiakaslista.get(vanha.getAsiakasNimi());
+        if (a != null) {
+            asiakaslista.remove(a.getAsiakasNimi());
+            asiakaslistaNumeroittain.remove(a);
+        }
+        
+        if (muutettu.getKatuOsoite().length()>0) {
+            a.setKatuOsoite(muutettu.getKatuOsoite());
+        }
+        if (muutettu.getPostiOsoite().length()>0) {
+            a.setPostiOsoite(muutettu.getPostiOsoite());
+        }
+        if (muutettu.getPuhelinnumero().length()>0) {
+            a.setPuhelinnumero(muutettu.getPuhelinnumero());
+        }
+        if (muutettu.getYhteyshenkilo().length()>0) {
+            a.setYhteyshenkilo(muutettu.getYhteyshenkilo());
+        }
+        asiakaslista.put(a.getAsiakasNimi(), a);
+        asiakaslistaNumeroittain.add(a);
+        Collections.sort(asiakaslistaNumeroittain);
+        return a.toString();
+    }
+    public Asiakas haeMuutettavaAsiakasnumerolla(String hakuehto) {
+        
+        for (Asiakas a : asiakaslistaNumeroittain) {
+            if (a.getAsiakasNumero().equals(hakuehto)) {
+                return a;
+            }
+        }
+
+        return null;
+    }
+    public String haeAsiakasAsiakasnumerolla(String hakuehto) {
+        String haettu = "Antamallasi asiakasnumerolla ei löytynyt asiakasta";
+        for (Asiakas a : asiakaslistaNumeroittain) {
+            if (a.getAsiakasNumero().equals(hakuehto)) {
+                return a.toString();
+            }
+        }
+
+        return haettu;
     }
 
     public String haeAsiakasNimella(String hakuehto) {
@@ -103,16 +157,16 @@ public class Asiakkaat {
         Collections.sort(asiakaslistaNumeroittain);
     }
 
-    public String haeAsiakasAsiakasnumerolla(String hakuehto) {
-        String haku = "Antamallasi numerolla ei löytynyt asiakasta";
-        for (Asiakas a : asiakaslistaNumeroittain) {
-            if (a.getAsiakasNumero().equals(hakuehto)) {
-                return a.toString();
-            }
-        }
-
-        return haku;
-    }
+//    public String haeAsiakasAsiakasnumerolla(String hakuehto) {
+//        String haku = "Antamallasi numerolla ei löytynyt asiakasta";
+//        for (Asiakas a : asiakaslistaNumeroittain) {
+//            if (a.getAsiakasNumero().equals(hakuehto)) {
+//                return a.toString();
+//            }
+//        }
+//
+//        return haku;
+//    }
 
     public void asiakkaatTiedostoon() throws IOException {
         tiedosto.kirjoitaAsiakkaatTiedostoon(asiakaslista);

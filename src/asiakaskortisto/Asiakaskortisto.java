@@ -9,8 +9,9 @@ import java.io.IOException;
 import kayttoliittyma.Tekstiliittyma;
 
 /**
- * Asiakaskortisto toimii pääohjelmana ohjaten käyttöliittymältä tulevia
- * valintoja eteenpäin
+ * Asiakaskortisto toimii asiakaskortisto-ohjelman pääohjelmana ohjaten 
+ * käyttäjää kirjautumaan ja mikäli kirjautuminen onnistuu ohjaa 
+ * kontrollin asiakaslogiikka luokalle
  *
  * @author Kati
  */
@@ -31,7 +32,6 @@ public class Asiakaskortisto {
 
             kirjautujanrooli = kirjaudu.tarkistaKirjautuminen(teksti.kysyKirjautumisTiedot());
             if (kirjautujanrooli != null) {
-                //System.out.println("kirjautuminen ok, kirjautujanrooli ei ole null");
                 break;
             } else {
                 System.out.println("Antamasi kirjautumistiedot eivät ole oikein");
