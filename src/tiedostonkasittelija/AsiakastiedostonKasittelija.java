@@ -35,7 +35,12 @@ public class AsiakastiedostonKasittelija {
         tiedostonNimi = tiedostonKayttaja.getTiedostonNimi();
         
     }
+    // Testikäyttöön
+    public void setTiedostonNimi(String tiedostonNimi) {
+        this.tiedostonNimi = tiedostonNimi;
+    }
         
+    
 
     public HashMap<String,Asiakas> lueAsiakkaatTiedostosta() throws IOException {
         /** Ohjelman alussa luetaan asiakastiedot tiedostosta rivi kerrallaan 

@@ -15,6 +15,6 @@ import java.util.HashMap;
 public interface tiedostoRajapinta {
     public void kirjoitaTiedostoon();
     public void luoTiedosto();
-    public HashMap<String,T> lueTiedostosta();
+    //public HashMap<String,T> lueTiedostosta();
     
 }
