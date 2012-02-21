@@ -43,6 +43,12 @@ public class Asiakkaat {
     public String getTiedostonNimi() {
         return tiedostonNimi;
     }
+
+    public ArrayList<Asiakas> getAsiakaslistaNumeroittain() {
+        return asiakaslistaNumeroittain;
+    }
+    
+    
     
     public int getKaikkienAsiakkaidenMaara() {
         int maara = 0;

@@ -4,11 +4,20 @@
  */
 package kayttoliittyma;
 
+import asiakaskortisto.Kayttaja;
+import asiakaskortisto.Kayttaja.Rooli;
+import asiakaskortisto.Kirjaudu;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Kati
  */
 public class KirjautumisUI extends javax.swing.JFrame {
+
+    static int kirjautumisLaskuri;
 
     /**
      * Creates new form KirjautumisUI
@@ -27,27 +36,31 @@ public class KirjautumisUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        kayttajatunnusLabel = new javax.swing.JLabel();
+        salasanaLabel = new javax.swing.JLabel();
+        kayttajatunnus = new javax.swing.JTextField();
+        Kirjaudu = new javax.swing.JButton();
+        salasana = new javax.swing.JTextField();
+        viesti = new javax.swing.JLabel();
+        Poistu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Asiakaskortisto"));
 
-        jLabel1.setText("Käyttäjätunnus");
+        kayttajatunnusLabel.setText("Käyttäjätunnus");
 
-        jLabel2.setText("Salasana");
+        salasanaLabel.setText("Salasana");
 
-        jButton1.setText("Kirjaudu");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Kirjaudu.setText("Kirjaudu");
+        Kirjaudu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                KirjauduActionPerformed(evt);
             }
         });
+
+        viesti.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        viesti.setText("Anna käyttäjätunnus ja salasana");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -57,36 +70,46 @@ public class KirjautumisUI extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(kayttajatunnusLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(salasanaLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)))
-                    .addComponent(jButton1))
-                .addContainerGap(86, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(salasana, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(kayttajatunnus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(Kirjaudu))
+                    .addComponent(viesti, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(86, 86, 86))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {kayttajatunnus, salasana});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(viesti, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(kayttajatunnus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kayttajatunnusLabel))
+                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(salasanaLabel)
+                    .addComponent(salasana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(Kirjaudu)
+                .addGap(29, 29, 29))
         );
 
-        jButton2.setText("Poistu");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {kayttajatunnus, salasana});
+
+        Poistu.setText("Poistu");
+        Poistu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                PoistuActionPerformed(evt);
             }
         });
 
@@ -102,7 +125,7 @@ public class KirjautumisUI extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Poistu, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
@@ -111,20 +134,57 @@ public class KirjautumisUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(Poistu)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void KirjauduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KirjauduActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        Rooli kirjautujanrooli = null;
+        String kayttajaTunnus = kayttajatunnus.getText();
+        String salaSana = salasana.getText();
+        //char[] salaSana = salasana.getPassword();
+        
+        kirjautumisLaskuri++;
+        if (kirjautumisLaskuri > 2) {
+            System.out.println("Kirjautuminen ei onnistunut");
+            System.exit(0);
+        }
+        if (!kayttajaTunnus.isEmpty() && !salaSana.isEmpty()) {
+            try {
+
+                Kirjaudu kirjaudu = new Kirjaudu();
+                kirjautujanrooli = kirjaudu.tarkistaKirjautuminen(new Kayttaja(kayttajaTunnus, salaSana));
+
+            } catch (IOException ex) {
+                Logger.getLogger(KirjautumisUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            
+ 
+        viesti.setText("Yritä uudelleen");
+        if (kirjautujanrooli == null && kirjautumisLaskuri > 2) {
+            System.out.println("Kirjautuminen ei onnistunut");
+            System.exit(0);
+        }
+        
+        if (kirjautujanrooli == Rooli.YLLAPITO) {
+            System.out.println("ylläpito");
+        }
+        if (kirjautujanrooli == Rooli.ESIMIES) {
+            System.out.println("esimies");
+        }
+        if (kirjautujanrooli == Rooli.TYONTEKIJA) {
+            System.out.println("työntekijä");
+        }
+    }//GEN-LAST:event_KirjauduActionPerformed
+
+    private void PoistuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PoistuActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_PoistuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,12 +228,13 @@ public class KirjautumisUI extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton Kirjaudu;
+    private javax.swing.JButton Poistu;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField kayttajatunnus;
+    private javax.swing.JLabel kayttajatunnusLabel;
+    private javax.swing.JTextField salasana;
+    private javax.swing.JLabel salasanaLabel;
+    private javax.swing.JLabel viesti;
     // End of variables declaration//GEN-END:variables
 }

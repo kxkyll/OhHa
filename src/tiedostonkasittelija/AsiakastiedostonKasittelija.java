@@ -35,6 +35,12 @@ public class AsiakastiedostonKasittelija {
         tiedostonNimi = tiedostonKayttaja.getTiedostonNimi();
         
     }
+
+    public AsiakastiedostonKasittelija(String tiedostonNimi) {
+        this.tiedostonNimi = tiedostonNimi;
+    }
+    
+    
     // Testikäyttöön
     public void setTiedostonNimi(String tiedostonNimi) {
         this.tiedostonNimi = tiedostonNimi;

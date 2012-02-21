@@ -6,6 +6,7 @@ package asiakaskortisto;
 
 import asiakaskortisto.Kayttaja.Rooli;
 import java.io.IOException;
+import kayttoliittyma.KirjautumisUI;
 import kayttoliittyma.Tekstiliittyma;
 
 /**
@@ -27,6 +28,8 @@ public class Asiakaskortisto {
         Kirjaudu kirjaudu = new Kirjaudu();
         int kirjautumisLaskuri = 0;
         Rooli kirjautujanrooli = null;
+        
+        
 
         while (kirjautumisLaskuri < 3) {
 
