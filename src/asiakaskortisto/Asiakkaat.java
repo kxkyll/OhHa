@@ -32,7 +32,8 @@ public class Asiakkaat {
         asiakkaatJarjestysListalle();
         seuraavaAsiakasnumero = haeSeuraavaAsiakasnumero();
     }
-    public Asiakkaat (String asiakastiedosto) throws IOException {
+
+    public Asiakkaat(String asiakastiedosto) throws IOException {
         this.tiedostonNimi = asiakastiedosto;
         tiedosto = new AsiakastiedostonKasittelija(this);
         asiakaslista = tiedosto.lueAsiakkaatTiedostosta();
@@ -47,15 +48,17 @@ public class Asiakkaat {
     public ArrayList<Asiakas> getAsiakaslistaNumeroittain() {
         return asiakaslistaNumeroittain;
     }
-    
-    
-    
+
+    public int getSeuraavaAsiakasnumero() {
+        return seuraavaAsiakasnumero;
+    }
+
     public int getKaikkienAsiakkaidenMaara() {
         int maara = 0;
         for (String asiakasNimi : asiakaslista.keySet()) {
             maara++;
         }
-        System.out.println("Määrä: " +maara);
+        System.out.println("Määrä: " + maara);
         return maara;
     }
 
@@ -83,19 +86,21 @@ public class Asiakkaat {
                 listalla = listalla + a.toString();
             }
         }
-    
+
 //        for (String asiakasNimi : asiakaslista.keySet()) {
 //            listalla = listalla + asiakaslista.get(asiakasNimi).toString();
 //        }
-    return listalla ;
-}
-public String lisaaAsiakas(Asiakas uusiAsiakas) {
+        return listalla;
+    }
+
+    public String lisaaAsiakas(Asiakas uusiAsiakas) {
         /**
          * Lisätään uusi asiakas
          */
         if (uusiAsiakas != null) {
-
-            uusiAsiakas.setAsiakasNumero(Integer.toString(seuraavaAsiakasnumero));
+            if (uusiAsiakas.getAsiakasNumero().isEmpty()) {
+                uusiAsiakas.setAsiakasNumero(Integer.toString(seuraavaAsiakasnumero));
+            }
             seuraavaAsiakasnumero++;
             asiakaslista.put(uusiAsiakas.getAsiakasNimi(), uusiAsiakas);
             asiakaslistaNumeroittain.add(uusiAsiakas);
@@ -104,7 +109,7 @@ public String lisaaAsiakas(Asiakas uusiAsiakas) {
         }
         return null;
     }
-    
+
     public String poistaAsiakas(String poistettava) {
         String viesti = "Poistettavaa asiakasta ei löytynyt";
         for (Asiakas a : asiakaslistaNumeroittain) {
@@ -115,24 +120,24 @@ public String lisaaAsiakas(Asiakas uusiAsiakas) {
         }
         return viesti;
     }
-    
-    public String muutaAsiakas (Asiakas vanha, Asiakas muutettu) {
+
+    public String muutaAsiakas(Asiakas vanha, Asiakas muutettu) {
         Asiakas a = asiakaslista.get(vanha.getAsiakasNimi());
         if (a != null) {
             asiakaslista.remove(a.getAsiakasNimi());
             asiakaslistaNumeroittain.remove(a);
         }
-        
-        if (muutettu.getKatuOsoite().length()>0) {
+
+        if (muutettu.getKatuOsoite().length() > 0) {
             a.setKatuOsoite(muutettu.getKatuOsoite());
         }
-        if (muutettu.getPostiOsoite().length()>0) {
+        if (muutettu.getPostiOsoite().length() > 0) {
             a.setPostiOsoite(muutettu.getPostiOsoite());
         }
-        if (muutettu.getPuhelinnumero().length()>0) {
+        if (muutettu.getPuhelinnumero().length() > 0) {
             a.setPuhelinnumero(muutettu.getPuhelinnumero());
         }
-        if (muutettu.getYhteyshenkilo().length()>0) {
+        if (muutettu.getYhteyshenkilo().length() > 0) {
             a.setYhteyshenkilo(muutettu.getYhteyshenkilo());
         }
         asiakaslista.put(a.getAsiakasNimi(), a);
@@ -140,8 +145,9 @@ public String lisaaAsiakas(Asiakas uusiAsiakas) {
         Collections.sort(asiakaslistaNumeroittain);
         return a.toString();
     }
+
     public Asiakas haeMuutettavaAsiakasnumerolla(String hakuehto) {
-        
+
         for (Asiakas a : asiakaslistaNumeroittain) {
             if (a.getAsiakasNumero().equals(hakuehto)) {
                 return a;
@@ -150,6 +156,7 @@ public String lisaaAsiakas(Asiakas uusiAsiakas) {
 
         return null;
     }
+
     public String haeAsiakasAsiakasnumerolla(String hakuehto) {
         String haettu = "Antamallasi asiakasnumerolla ei löytynyt asiakasta";
         for (Asiakas a : asiakaslistaNumeroittain) {
@@ -189,7 +196,6 @@ public String lisaaAsiakas(Asiakas uusiAsiakas) {
 //
 //        return haku;
 //    }
-
     public void asiakkaatTiedostoon() throws IOException {
         tiedosto.kirjoitaAsiakkaatTiedostoon(asiakaslista);
     }

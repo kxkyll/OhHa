@@ -140,6 +140,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Lis&#xe4;&#xe4; asiakas"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lisaaNappiActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="muutaNappi">
           <Properties>
@@ -298,6 +301,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="OK"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="okNappiActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -335,6 +341,9 @@
       <SubComponents>
         <Component class="javax.swing.JList" name="asiakasLista">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Courier New" size="12" style="0"/>
+            </Property>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
               <StringArray count="5">
                 <StringItem index="0" value="Item 1"/>
