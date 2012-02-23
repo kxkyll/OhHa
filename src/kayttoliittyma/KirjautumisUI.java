@@ -147,7 +147,7 @@ public class KirjautumisUI extends javax.swing.JFrame {
         String kayttajaTunnus = kayttajatunnus.getText();
         String salaSana = salasana.getText();
         //char[] salaSana = salasana.getPassword();
-        
+
         kirjautumisLaskuri++;
         if (kirjautumisLaskuri > 2) {
             System.out.println("Kirjautuminen ei onnistunut");
@@ -162,23 +162,47 @@ public class KirjautumisUI extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(KirjautumisUI.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else {
+            viesti.setText("Yritä uudelleen");
         }
-            
- 
-        viesti.setText("Yritä uudelleen");
+
+
+
         if (kirjautujanrooli == null && kirjautumisLaskuri > 2) {
             System.out.println("Kirjautuminen ei onnistunut");
             System.exit(0);
         }
-        
+
         if (kirjautujanrooli == Rooli.YLLAPITO) {
             System.out.println("ylläpito");
+            this.setVisible(false);
+            try {
+                AsiakasValikkoUI asiakasValikko = new AsiakasValikkoUI();
+                asiakasValikko.aloita();
+            } catch (IOException ex) {
+                Logger.getLogger(KirjautumisUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
         if (kirjautujanrooli == Rooli.ESIMIES) {
             System.out.println("esimies");
+            this.setVisible(false);
+            try {
+                AsiakasValikkoUI asiakasValikko = new AsiakasValikkoUI();
+                asiakasValikko.aloita();
+            } catch (IOException ex) {
+                Logger.getLogger(KirjautumisUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         if (kirjautujanrooli == Rooli.TYONTEKIJA) {
             System.out.println("työntekijä");
+            this.setVisible(false);
+            try {
+                AsiakasValikkoUI asiakasValikko = new AsiakasValikkoUI();
+                asiakasValikko.aloita();
+            } catch (IOException ex) {
+                Logger.getLogger(KirjautumisUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_KirjauduActionPerformed
 
@@ -189,7 +213,8 @@ public class KirjautumisUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+public void kaynnisty() {
+    //public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
          */

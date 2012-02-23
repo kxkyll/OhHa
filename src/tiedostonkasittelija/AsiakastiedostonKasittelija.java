@@ -74,11 +74,11 @@ public class AsiakastiedostonKasittelija {
         asiakaslista = new HashMap<String, Asiakas>();
         for (String luettu : tiedostonRivit) {
             Asiakas uusiAsiakas = luoAsiakas(luettu);
-            //System.out.println("uusi asiakas: " + uusiAsiakas);
+            
             if (uusiAsiakas != null) {
                 asiakaslista.put(uusiAsiakas.getAsiakasNimi(), uusiAsiakas);
             }
-            //System.out.println("asiakaslista: " + asiakaslista);
+            
         }
         return asiakaslista;
     }

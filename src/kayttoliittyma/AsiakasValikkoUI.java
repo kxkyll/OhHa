@@ -9,6 +9,8 @@ import asiakaskortisto.Asiakas.Tila;
 import asiakaskortisto.Asiakkaat;
 import java.awt.Color;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,8 +21,10 @@ import java.util.logging.Logger;
 public class AsiakasValikkoUI extends javax.swing.JFrame {
 
     static String mitaPainettu;
-    Asiakkaat asiakkaat;
-    Asiakas vanha;
+    private Asiakkaat asiakkaat;
+    private Asiakas vanha;
+    private Calendar tamaPaiva;
+    private SimpleDateFormat formatter;
 
     /**
      * Creates new form AsiakasValikkoUI
@@ -29,6 +33,8 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
         initComponents();
         // asiakasLista.add("testi1", rootPane);
         asiakkaat = new Asiakkaat();
+        tamaPaiva = Calendar.getInstance();
+        formatter = new SimpleDateFormat("dd.MM.yyyy");
     }
 
     /**
@@ -349,11 +355,14 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
         if (mitaPainettu.equals("hae")) {
             viesti.setText("Haetaan asiakasta");
             haeTiedot();
+            return;
         }
         if (mitaPainettu.equals("lisaa")) {
+
             if (tiedotAnnettu()) {
                 String postiosoite = asiakasPostinumero.getText();
                 postiosoite = postiosoite + " " + asiakasToimipaikka.getText();
+                String asiakkaaksituloPvm = formatter.format(tamaPaiva.getTime());
                 String uusi = asiakkaat.lisaaAsiakas(
                         new Asiakas(asiakasNumero.getText(),
                         asiakasNimi.getText(),
@@ -361,7 +370,7 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
                         postiosoite,
                         asiakasPuhelinnumero.getText(),
                         asiakasYhteyshenkilo.getText(),
-                        "",
+                        asiakkaaksituloPvm,
                         Tila.NORMAALI));
                 String utaulu[] = uusi.split("\n");
                 asiakasLista.setListData(utaulu);
@@ -370,11 +379,13 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
                 asiakasNumero.setFocusable(rootPaneCheckingEnabled);
                 mitaPainettu = "";
             }
+            return;
         }
         if (mitaPainettu.equals("muuta")) {
             mitaPainettu = "muutaOK";
             viesti.setText("Anna muutettavat tiedot ja paina OK");
             haeTiedot();
+            return;
         }
         if (mitaPainettu.equals("muutaOK")) {
             if (tiedotAnnettu()) {
@@ -393,25 +404,27 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
                 Asiakas muutettu = asiakkaat.haeAsiakasOlioAsiakasnumerolla(vanha.getAsiakasNumero());
                 asetaAsiakas(muutettu);
                 String muuttettuListalle = asiakkaat.haeAsiakasAsiakasnumerolla(vanha.getAsiakasNumero());
-                String muutettuTaulu [] = muuttettuListalle.split("\n");
+                String muutettuTaulu[] = muuttettuListalle.split("\n");
                 asiakasLista.setListData(muutettuTaulu);
-                
+
                 mitaPainettu.equals("");
                 viesti.setText("Asiakastiedot muutettu");
             }
+            return;
         }
 
         if (mitaPainettu.equals("poista")) {
             mitaPainettu = "poistaOK";
             viesti.setText("Vahvista poisto painamalla OK");
             haeTiedot();
-            
+            return;
         }
         if (mitaPainettu.equals("poistaOK")) {
             asiakkaat.poistaAsiakas(asiakasNumero.getText());
             putsaaTiedot();
             viesti.setText("Asiakas poistettu");
-    }
+            return;
+        }
     }//GEN-LAST:event_okNappiActionPerformed
 
     private void haeTiedot() {
@@ -536,7 +549,8 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public void aloita() {
+    //public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
          */

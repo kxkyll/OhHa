@@ -31,23 +31,24 @@ public class Asiakaskortisto {
         
         
 
-        while (kirjautumisLaskuri < 3) {
-
-            kirjautujanrooli = kirjaudu.tarkistaKirjautuminen(teksti.kysyKirjautumisTiedot());
-            if (kirjautujanrooli != null) {
-                break;
-            } else {
-                System.out.println("Antamasi kirjautumistiedot eivät ole oikein");
-                kirjautumisLaskuri++;
-            }
-        }
-        if (kirjautujanrooli == null) {
-            System.out.println("Kirjautuminen ei onnistunut");
-            System.exit(0);
-        }
-
-        logiikka.suorita();
+//        while (kirjautumisLaskuri < 3) {
+//
+//            kirjautujanrooli = kirjaudu.tarkistaKirjautuminen(teksti.kysyKirjautumisTiedot());
+//            if (kirjautujanrooli != null) {
+//                break;
+//            } else {
+//                System.out.println("Antamasi kirjautumistiedot eivät ole oikein");
+//                kirjautumisLaskuri++;
+//            }
+//        }
+//        if (kirjautujanrooli == null) {
+//            System.out.println("Kirjautuminen ei onnistunut");
+//            System.exit(0);
+//        }
+//
+//        logiikka.suorita();
         KirjautumisUI gkirjaudu = new KirjautumisUI();
+        gkirjaudu.kaynnisty();
 
         }
 
