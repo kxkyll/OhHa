@@ -8,6 +8,7 @@ import asiakaskortisto.Asiakas.Tila;
 import asiakaskortisto.Asiakkaat;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import static org.junit.Assert.*;
 import org.junit.*;
 
@@ -58,13 +59,14 @@ public class AsiakkaatTest {
     }
 
     @Test
-    public void kirjoitaAsiakkaat() throws IOException {
+    public void lisaaAsiakasOK() throws IOException {
         Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
+        int asiakasmaara = as.getKaikkienAsiakkaidenMaara();
+        System.out.println("asiakasmaara ennen " + asiakasmaara);
         as.lisaaAsiakas(new Asiakas("", "TestiAs1", "TestiAs1Os 1",
                 "11122 Testikyla", "111-2222222", "Terttu Testaaja", "19-02-2012", Tila.NORMAALI));
-        as.asiakkaatTiedostoon();
-
-        assertEquals(1, as.getKaikkienAsiakkaidenMaara());
+        System.out.println("asiakasmaara jälkeen " + as.getKaikkienAsiakkaidenMaara());
+        assertEquals(asiakasmaara + 1, as.getKaikkienAsiakkaidenMaara());
 
     }
 
@@ -72,7 +74,10 @@ public class AsiakkaatTest {
     public void haeAsiakasAsiakasNumerollaOK() throws IOException {
 
         Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
-        String asiakasnumero = "10029";
+        as.lisaaAsiakas(new Asiakas("", "TestiAs9", "TestiAs1Os 1",
+                "11122 Testikyla", "111-2222222", "Terttu Testaaja", "19-02-2012", Tila.NORMAALI));
+        Asiakas haettuAsiakas = as.haeAsiakasOlioNimella("TestiAs9");
+        String asiakasnumero = haettuAsiakas.getAsiakasNumero();
         String haettu = as.haeAsiakasAsiakasnumerolla(asiakasnumero);
         String[] hakutaulu = haettu.split(" ");
         assertEquals(asiakasnumero, hakutaulu[0]);
@@ -87,9 +92,10 @@ public class AsiakkaatTest {
         String haettu = "";
         Asiakas a = as.haeAsiakasOlioAsiakasnumerolla(asiakasnumero);
         if (a != null) {
+            System.out.println("a ei null");
             haettu = a.getAsiakasNumero();
         }
-
+        System.out.println(asiakasnumero + " " + haettu);
         assertEquals(asiakasnumero, haettu);
 
     }
@@ -124,7 +130,7 @@ public class AsiakkaatTest {
         String haettu = as.haeAsiakasAsiakasnumerolla(asiakasnumero);
         String[] hakutaulu = haettu.split(" ");
         assertFalse(haettu.contains(asiakasnumero));
-        
+
     }
 
     @Test
@@ -139,13 +145,14 @@ public class AsiakkaatTest {
         //asiakas on null, koska tälläistä asiakasta ei ole, miten testataan
         assertNotSame(asiakasnumero, haettu);
     }
-        @Test
+
+    @Test
     public void haeAsiakasNimellaOK() throws IOException {
 
         Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
         String nimi = "TestiAs1";
         String haettu = as.haeAsiakasNimella(nimi);
-        assertTrue (haettu.contains(nimi));
+        assertTrue(haettu.contains(nimi));
     }
 
     @Test
@@ -160,7 +167,87 @@ public class AsiakkaatTest {
         }
 
         assertEquals(nimi, haettu);
-
     }
 
+    @Test
+    public void muutaAsiakasOK() throws IOException {
+
+        Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
+        String nimi = "TestiAs1";
+        String uusiPuhelin = "888-222333";
+        String muutettuPuhelin = "";
+        Asiakas vanha = as.haeAsiakasOlioNimella(nimi);
+        if (vanha != null) {
+            
+            Asiakas uusi = new Asiakas(vanha.getAsiakasNumero(), vanha.getAsiakasNimi(), "", "", uusiPuhelin, "", "", Tila.NORMAALI);
+            as.muutaAsiakas(vanha, uusi);
+            Asiakas muutettuAsiakas = as.haeAsiakasOlioNimella(nimi);
+            
+            if (muutettuAsiakas != null) {
+                 muutettuPuhelin = muutettuAsiakas.getPuhelinnumero();
+            }
+        }
+        assertEquals(uusiPuhelin, muutettuPuhelin);
+    }
+    
+     @Test
+    public void muutaAsiakasNOK() throws IOException {
+
+        Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
+        String nimi = "TestiAs1";
+        String uusiAsiakasnumero = "77777";
+        String muutettuAsiakasnumero = "";
+        Asiakas vanha = as.haeAsiakasOlioNimella(nimi);
+        if (vanha != null) {
+            
+            Asiakas uusi = new Asiakas(uusiAsiakasnumero, vanha.getAsiakasNimi(), "", "", "", "", "", Tila.NORMAALI);
+            as.muutaAsiakas(vanha, uusi);
+            Asiakas muutettuAsiakas = as.haeAsiakasOlioNimella(nimi);
+            
+            if (muutettuAsiakas != null) {
+                 muutettuAsiakasnumero = muutettuAsiakas.getAsiakasNumero();
+            }
+        }
+        assertNotSame(uusiAsiakasnumero, muutettuAsiakasnumero);
+        
+    }
+    
+     @Test
+    public void tarkistaNumerojarjestys() throws IOException {
+
+        Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
+        ArrayList<Asiakas> asiakaslistaNumeroittain = as.getAsiakaslistaNumeroittain();
+        Boolean ok = true;
+        int edellinen = 0;
+        for (Asiakas a: asiakaslistaNumeroittain) {
+         if (edellinen > Integer.parseInt(a.getAsiakasNumero())){
+             ok = false;
+        }
+         edellinen = Integer.parseInt(a.getAsiakasNumero());
+        }
+        assertEquals(true, ok);
+       
+     }
+     
+     @Test
+    public void poistaAsiakasOK() throws IOException {
+
+        Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
+        String nimi = "TestiAs1";
+        
+        Asiakas vanha = as.haeAsiakasOlioNimella(nimi);
+        String poistettu = as.poistaAsiakas(vanha.getAsiakasNumero());
+        
+        assertTrue(poistettu.contains(vanha.getAsiakasNumero()));
+    }
+     
+       @Test
+    public void poistaAsiakasNOK() throws IOException {
+        Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
+        String numero = "66666";
+        String poistettu = as.poistaAsiakas(numero);
+        assertFalse(poistettu.contains(numero));
+        
+    }
+     
 }

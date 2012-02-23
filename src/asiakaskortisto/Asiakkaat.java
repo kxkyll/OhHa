@@ -58,7 +58,7 @@ public class Asiakkaat {
         for (String asiakasNimi : asiakaslista.keySet()) {
             maara++;
         }
-        System.out.println("Määrä: " + maara);
+        //System.out.println("Määrä: " + maara);
         return maara;
     }
 
