@@ -75,10 +75,8 @@ public class Asiakkaat {
                 + String.format("%-25s", "Katuosoite ")
                 + String.format("%-25s", "Postiosoite ")
                 + String.format("%-25s", "Puhelinnumero")
-                + String.format("%-25s", "Yhteyshenkilo \n");
+                +String.format("%-25s", "Yhteyshenkilo") +"\n";
 
-        // Tässä jokin ongelma, eka asiakasrivi siftaantuu noin 10 merkillä oikealle
-        // muut tulostuvat oikein
 
         while (it.hasNext()) {
             Asiakas a = asiakaslista.get(it.next());
@@ -87,9 +85,7 @@ public class Asiakkaat {
             }
         }
 
-//        for (String asiakasNimi : asiakaslista.keySet()) {
-//            listalla = listalla + asiakaslista.get(asiakasNimi).toString();
-//        }
+        
         return listalla;
     }
 
@@ -105,7 +101,8 @@ public class Asiakkaat {
             asiakaslista.put(uusiAsiakas.getAsiakasNimi(), uusiAsiakas);
             asiakaslistaNumeroittain.add(uusiAsiakas);
             Collections.sort(asiakaslistaNumeroittain);
-            return uusiAsiakas.getAsiakasNimi();
+            return uusiAsiakas.toString();
+            //return uusiAsiakas.getAsiakasNimi();
         }
         return null;
     }
@@ -168,14 +165,29 @@ public class Asiakkaat {
         return haettu;
     }
 
+    public Asiakas haeAsiakasOlioAsiakasnumerolla(String hakuehto) {
+
+        for (Asiakas a : asiakaslistaNumeroittain) {
+            if (a.getAsiakasNumero().equals(hakuehto)) {
+                return a;
+            }
+        }
+        return null;
+    }
+
     public String haeAsiakasNimella(String hakuehto) {
         String haettu = "Antamallasi nimellä ei löytynyt asiakasta";
-        Asiakas a = asiakaslista.get(hakuehto);
-        if (a != null) {
-            haettu = a.toString();
+        if (asiakaslista.containsKey(hakuehto)) {
+            haettu = asiakaslista.get(hakuehto).toString();
         }
-
         return haettu;
+
+    }
+
+    public Asiakas haeAsiakasOlioNimella(String hakuehto) {
+        Asiakas a = null;
+        a = asiakaslista.get(hakuehto);
+        return a;
     }
 
     private void asiakkaatJarjestysListalle() {

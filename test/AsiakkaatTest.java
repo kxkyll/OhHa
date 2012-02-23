@@ -19,11 +19,9 @@ import org.junit.rules.TemporaryFolder;
  * @author Kati
  */
 public class AsiakkaatTest {
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
-    
-    private File tiedosto;
-    
+        
+    String tiedostoNimi;
+    FileWriter kirjoittaja;
     
     public AsiakkaatTest() {
         
@@ -40,17 +38,14 @@ public class AsiakkaatTest {
     
     @Before
     public void setUp() throws IOException {
-        tiedosto  = folder.newFile("testi.txt");
-        BufferedWriter out = new BufferedWriter(new FileWriter(tiedosto));
+        tiedostoNimi = "asiakastesti.txt";
+        kirjoittaja = new FileWriter(tiedostoNimi);
         
-        out.write("10999;Testi Oy;Testitie 3;12345 Uusimaa;111-2223334;Teppo Testi;19.02.2012;NORMAALI");
-        out.write("11000;Vesti Oy;Vestitie 4;22345 Tusimaa;222-2223334;Veppo Vesti;19.02.2012;NORMAALI");
-       out.close();
-        System.out.println(tiedosto);
     }
     
     @After
-    public void tearDown() {
+    public void tearDown() throws IOException {
+        kirjoittaja.close();
     }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
@@ -59,7 +54,9 @@ public class AsiakkaatTest {
     // public void hello() {}
     @Test
     public void lueAsiakkaat() throws IOException {
-        Asiakkaat as = new Asiakkaat ("testi.txt");
+        kirjoittaja.write("10099;Testi1Asiakas;Testikatu 1;00220 Testila;101-11223344;Terttu Testi;10.02.2012;NORMAALI");
+        kirjoittaja.write("10100;Testi2Asiakas;Testikatu 2;00330 Testila;101-11223355;Teppo Testi;11.02.2012;NORMAALI");
+        Asiakkaat as = new Asiakkaat (tiedostoNimi);
         assertEquals(2, as.getKaikkienAsiakkaidenMaara());
                 
     }

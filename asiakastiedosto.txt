@@ -1,18 +1,23 @@
-10013;Aapeli;Aakkostie 1;76567 Asiakkala;878-987654;Anne Aapeli;19.02.2012;NORMAALI
+10013;Aapeli;Aakkostie 1;45427 Asiakkala;878-987654;Anne Aapeli;19.02.2012;NORMAALI
+10022;JuuriLisatty;Juurikuja 9;65435 Juuramo;876-34567;Julle Juurikas;;NORMAALI
 10001;Tokaasiakas;Testikatu 2;00220 Tokala;020-989898;Terttu Toka;10.02.2012;NORMAALI
 10014;JokuToinen;Kotikatu 6;767898 Hakala;212-323454;Anne Jokula;19.02.2012;ARKISTOITU
 10002;IhanUusi Oy;Ikkunatie 4;00987 Vuosaari;878-456789;Ville Vilu;12.02.2012;NORMAALI
 10003;Ekalisatty;Lisakatu 6;98789 Takamaki;989-656787;Anne Yrjo;01.02.2012;NORMAALI
 10016;LumetVex Oy;Intiankatu 6 A 7;00510 Helsinki;050-543211;Lissu Lumi;;NORMAALI
-10004;VikaVille;Inkatie 6;56545 Inkala;987-567890;Vinha Viipottaja;08.01.2012;NORMAALI
+10019;Nuohooja;Nokikatu 9;00280 Inttala;765-8765;Pekka Pomo;;NORMAALI
+10004;VikaVille;Inkkaritie 6;45432 Inkkarila;987-567890;Vinha Viipottaja;08.01.2012;NORMAALI
 10005;Ekaasiakas;Testikatu 1;00110 Ekala;010-989898;Erkki Eka;12.02.2012;ARKISTOITU
-10011;3 Oy;Ikkunakuja 8;876543 Ikaalinen;989-765432;Inna Ikkuna;19.02.2012;NORMAALI
+10011;3 Oy;Ikkunakuja 8;876543 Ikaalinen;989-765432;Inna Ikkuna;19.02.2012;ARKISTOITU
 10006;Lumia;Lumikuja 4;87654 Lumela;987-654321;Luulia Lumi;19.02.2012;NORMAALI
-10008;Ihqu Oy;Rantatie 6;98765 Rantala;987-678987;Ville Rannikko;12.02.2012;NORMAALI
-10012;Puutiainen;Puupolku 5;67876 Puumala;987-456789;Pekka Puu;19.02.2012;NORMAALI
-10010;Kolmasasiakas;Testikatu 3;00330 Kolmala;030-989898;Karoliina Kolmas;12.02.2012;NORMAALI
 10000;Asiakas;Lumikuja 8 A6;98765 Pikkala;343-454646;Janne Joku;19.02.2012;ARKISTOITU
+10008;Ihqu Oy;Rantatie 6;98765 Rantala;987-678987;Ville Rannikko;12.02.2012;NORMAALI
+10010;Kolmasasiakas;Testikatu 3;00330 Kolmala;030-989898;Karoliina Kolmas;12.02.2012;NORMAALI
+10012;Puutiainen;Puupolku 5;67876 Puumala;987-456789;Pekka Puu;19.02.2012;NORMAALI
 10015;Lumilinko Oy;Tunturitie 4;01110 Paakaupunki;010-234235;Lasse Linkola;19.02.2012;NORMAALI
-10007;Kissala;oijlkj 6;98765 Innala;876-3456;Keijo Kissa;12.02.2012;NORMAALI
+10021;VirkeaAamu Oy;Aamuruskontie 4;98712 Tampere;876-43567;Hannu Jalas;;NORMAALI
+10018;Demoefekti;Kumpulantie 2;00510 Helsinki;878-6543;Demo Efekti;;NORMAALI
+10020;InnaPinna;Katu 2;99876 Puikkola;765-432198;Jaana Joki;;NORMAALI
 10009;Uusi;Uusitie 3;98789 Uusimaa;876-654325;Ulla Uutela;12.02.2012;NORMAALI
+10007;Kissala;oijlkj 6;98765 Innala;876-3456;Keijo Kissa;12.02.2012;NORMAALI
 10017;Pizzapojat ;Kaarikuja 6;00940 Helsinki;020-555342;Pablo Florenz;;NORMAALI

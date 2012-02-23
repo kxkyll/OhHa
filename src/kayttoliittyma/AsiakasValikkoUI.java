@@ -11,7 +11,6 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JList;
 
 /**
  *
@@ -21,6 +20,7 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
 
     static String mitaPainettu;
     Asiakkaat asiakkaat;
+    Asiakas vanha;
 
     /**
      * Creates new form AsiakasValikkoUI
@@ -94,8 +94,18 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
         });
 
         muutaNappi.setText("Muuta asiakas");
+        muutaNappi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                muutaNappiActionPerformed(evt);
+            }
+        });
 
         poistaNappi.setText("Poista asiakas");
+        poistaNappi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                poistaNappiActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -260,11 +270,6 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         asiakasLista.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
-        asiakasLista.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(asiakasLista);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -321,37 +326,16 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
     }//GEN-LAST:event_asiakasNumeroActionPerformed
 
     private void listaaNappiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaaNappiActionPerformed
+
         String asiakaslistaus = asiakkaat.listaaAsiakkaat(); // TODO add your handling code here:
         String[] lista = asiakaslistaus.split("\n");
-//        for (String a : lista) {
-//            System.out.println(a);
-//        }
-        //asiakasLista.add("testi2", rootPane);
-        //String[] as = {"aaaaaaaa", "mmmmmmmm", "iiiiiiii"};
-        //JList hakuList = new JList(as);
-        //hakuList.setVisibleRowCount(10);
-        //asiakasLista = new JList(as);
-        //asiakasLista.setModel(as);
-        //asiakasLista.add(hakuList);
+
         asiakasLista.setListData(lista);
-        //asiakasLista.revalidate();
-        //asiakasLista.updateUI();
-        System.out.println(asiakasLista);
 
-
-        //asiakkaat.getAsiakaslistaNumeroittain();
     }//GEN-LAST:event_listaaNappiActionPerformed
 
     private void haeNappiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_haeNappiActionPerformed
-        asiakasNimi.setText("");
-        asiakasNumero.setEditable(true);
-        asiakasNumero.setText("");
-        asiakasOsoite.setText("");
-        asiakasPostinumero.setText("");
-        asiakasToimipaikka.setText("");
-        asiakasYhteyshenkilo.setText("");
-        asiakasPuhelinnumero.setText("");
-        
+        putsaaTiedot();
         viesti.setText("Anna hakuehdoksi asiakkaan nimi tai  asiakasnumero ja paina OK");
         mitaPainettu = "hae";
 
@@ -364,58 +348,190 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
         String hakutaulu[];
         if (mitaPainettu.equals("hae")) {
             viesti.setText("Haetaan asiakasta");
-
-            if (!asiakasNumero.getText().isEmpty()) {
-                haettu = asiakkaat.haeAsiakasAsiakasnumerolla(asiakasNumero.getText());
-                hakutaulu = haettu.split("\n");
-                asiakasLista.setListData(hakutaulu);
-
-//                String aputaulu[] = haettu.split("  ");
-//                asiakasNumero.setText(hakutaulu[0]);
-//                asiakasNimi.setText(hakutaulu[1]);
-//                asiakasOsoite.setText(hakutaulu[2]);
-//                
-//                asiakasPostinumero.setText(aputaulu[3]);
-//                asiakasToimipaikka.setText(aputaulu[4]);
-//                asiakasPuhelinnumero.setText(hakutaulu[5]);
-//                 asiakasYhteyshenkilo.setText(hakutaulu[6]);
-
-            }
-            if (!asiakasNimi.getText().isEmpty()) {
-                haettu = asiakkaat.haeAsiakasNimella(asiakasNimi.getText());
-                hakutaulu = haettu.split("\n");
-                asiakasLista.setListData(hakutaulu);
-            }
+            haeTiedot();
         }
         if (mitaPainettu.equals("lisaa")) {
-            String postiosoite = asiakasPostinumero.getText();
-            postiosoite = postiosoite +" " +asiakasToimipaikka.getText();
-           String uusi = asiakkaat.lisaaAsiakas(
-                    new Asiakas (asiakasNumero.getText(),
-                                 asiakasNimi.getText(),
-                                 asiakasOsoite.getText(),
-                                 postiosoite,
-                                 asiakasPuhelinnumero.getText(), 
-                                 asiakasYhteyshenkilo.getText(),
-                                 "",
-                                 Tila.NORMAALI));
-           String utaulu[] = uusi.split("/n");
-           asiakasLista.setListData(utaulu);
-           viesti.setText("Asiakastiedot lisätty");
-           mitaPainettu = "";
+            if (tiedotAnnettu()) {
+                String postiosoite = asiakasPostinumero.getText();
+                postiosoite = postiosoite + " " + asiakasToimipaikka.getText();
+                String uusi = asiakkaat.lisaaAsiakas(
+                        new Asiakas(asiakasNumero.getText(),
+                        asiakasNimi.getText(),
+                        asiakasOsoite.getText(),
+                        postiosoite,
+                        asiakasPuhelinnumero.getText(),
+                        asiakasYhteyshenkilo.getText(),
+                        "",
+                        Tila.NORMAALI));
+                String utaulu[] = uusi.split("\n");
+                asiakasLista.setListData(utaulu);
+                viesti.setText("Asiakastiedot lisätty");
+                asiakasNumero.setEditable(true);
+                asiakasNumero.setFocusable(rootPaneCheckingEnabled);
+                mitaPainettu = "";
+            }
+        }
+        if (mitaPainettu.equals("muuta")) {
+            mitaPainettu = "muutaOK";
+            viesti.setText("Anna muutettavat tiedot ja paina OK");
+            haeTiedot();
+        }
+        if (mitaPainettu.equals("muutaOK")) {
+            if (tiedotAnnettu()) {
+                String postiosoite = asiakasPostinumero.getText();
+                postiosoite = postiosoite + " " + asiakasToimipaikka.getText();
+
+                asiakkaat.muutaAsiakas(vanha,
+                        new Asiakas(asiakasNumero.getText(),
+                        asiakasNimi.getText(),
+                        asiakasOsoite.getText(),
+                        postiosoite,
+                        asiakasPuhelinnumero.getText(),
+                        asiakasYhteyshenkilo.getText(),
+                        "",
+                        Tila.NORMAALI));
+                Asiakas muutettu = asiakkaat.haeAsiakasOlioAsiakasnumerolla(vanha.getAsiakasNumero());
+                asetaAsiakas(muutettu);
+                String muuttettuListalle = asiakkaat.haeAsiakasAsiakasnumerolla(vanha.getAsiakasNumero());
+                String muutettuTaulu [] = muuttettuListalle.split("\n");
+                asiakasLista.setListData(muutettuTaulu);
+                
+                mitaPainettu.equals("");
+                viesti.setText("Asiakastiedot muutettu");
+            }
         }
 
+        if (mitaPainettu.equals("poista")) {
+            mitaPainettu = "poistaOK";
+            viesti.setText("Vahvista poisto painamalla OK");
+            haeTiedot();
+            
+        }
+        if (mitaPainettu.equals("poistaOK")) {
+            asiakkaat.poistaAsiakas(asiakasNumero.getText());
+            putsaaTiedot();
+            viesti.setText("Asiakas poistettu");
+    }
     }//GEN-LAST:event_okNappiActionPerformed
+
+    private void haeTiedot() {
+        String haettu;
+        String hakutaulu[];
+        if (!asiakasNumero.getText().isEmpty()) {
+            haettu = asiakkaat.haeAsiakasAsiakasnumerolla(asiakasNumero.getText());
+            hakutaulu = haettu.split("\n");
+            asiakasLista.setListData(hakutaulu);
+            Asiakas a = asiakkaat.haeAsiakasOlioAsiakasnumerolla(asiakasNumero.getText());
+            vanha = a;
+            if (a != null) {
+                asetaAsiakas(a);
+            }
+
+        }
+        if (!asiakasNimi.getText().isEmpty()) {
+            haettu = asiakkaat.haeAsiakasNimella(asiakasNimi.getText());
+            hakutaulu = haettu.split("\n");
+            asiakasLista.setListData(hakutaulu);
+
+            Asiakas a = asiakkaat.haeAsiakasOlioNimella(asiakasNimi.getText());
+            vanha = a;
+            if (a != null) {
+                asetaAsiakas(a);
+            }
+        }
+    }
+
+    private void putsaaTiedot() {
+        asiakasNimi.setText("");
+        asiakasNumero.setEditable(true);
+        asiakasNumero.setFocusable(rootPaneCheckingEnabled);
+        asiakasNumero.setText("");
+        asiakasOsoite.setText("");
+        asiakasPostinumero.setText("");
+        asiakasToimipaikka.setText("");
+        asiakasYhteyshenkilo.setText("");
+        asiakasPuhelinnumero.setText("");
+        asiakasNimi.grabFocus();
+
+    }
+
+    private void asetaAsiakas(Asiakas a) {
+        asiakasNimi.setText(a.getAsiakasNimi());
+        asiakasNumero.setEditable(true);
+        asiakasNumero.setFocusable(rootPaneCheckingEnabled);
+        asiakasNumero.setText(a.getAsiakasNumero());
+        asiakasOsoite.setText(a.getKatuOsoite());
+        String postiosoite = a.getPostiOsoite();
+        String posti[] = postiosoite.split(" ");
+        asiakasPostinumero.setText(posti[0]);
+        asiakasToimipaikka.setText(posti[1]);
+        asiakasYhteyshenkilo.setText(a.getYhteyshenkilo());
+        asiakasPuhelinnumero.setText(a.getPuhelinnumero());
+    }
+
+    private boolean tiedotAnnettu() {
+        if (asiakasNimi.getText().isEmpty()) {
+            viesti.setText("Anna asiakkaan nimi");
+            asiakasNimi.grabFocus();
+            return false;
+        }
+        if (asiakasOsoite.getText().isEmpty()) {
+            viesti.setText("Anna asiakkaan osoite");
+            asiakasOsoite.grabFocus();
+            return false;
+        }
+        if (asiakasPostinumero.getText().isEmpty()) {
+            viesti.setText("Anna asiakkaan postinumero");
+            asiakasPostinumero.grabFocus();
+            return false;
+        }
+        if (asiakasToimipaikka.getText().isEmpty()) {
+            viesti.setText("Anna asiakkaan toimipaikka");
+            asiakasToimipaikka.grabFocus();
+            return false;
+        }
+        if (asiakasYhteyshenkilo.getText().isEmpty()) {
+            viesti.setText("Anna asiakkaan yhteyshenkilo");
+            asiakasYhteyshenkilo.grabFocus();
+            return false;
+        }
+        if (asiakasPuhelinnumero.getText().isEmpty()) {
+            viesti.setText("Anna asiakkaan puhelinnumero");
+            asiakasPuhelinnumero.grabFocus();
+            return false;
+        }
+        return true;
+    }
 
     private void lisaaNappiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lisaaNappiActionPerformed
         // TODO add your handling code here:
+
+        putsaaTiedot();
         asiakasNumero.setText(Integer.toString(asiakkaat.getSeuraavaAsiakasnumero()));
         asiakasNumero.setCaretColor(Color.GRAY);
         asiakasNumero.setEditable(false);
+        asiakasNumero.setFocusable(false);
         viesti.setText("Anna asiakastiedot kenttiin ja paina OK");
         mitaPainettu = "lisaa";
-        //asiakasNimi.setFocusAccelerator('|');
+
+
     }//GEN-LAST:event_lisaaNappiActionPerformed
+
+    private void poistaNappiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_poistaNappiActionPerformed
+        mitaPainettu = "poista";
+        putsaaTiedot();
+        viesti.setText("Anna poistettavan asiakkaan nimi tai asiakasnumero ja paina OK");
+
+
+    }//GEN-LAST:event_poistaNappiActionPerformed
+
+    private void muutaNappiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_muutaNappiActionPerformed
+        // TODO add your handling code here:
+        mitaPainettu = "muuta";
+        putsaaTiedot();
+        viesti.setText("Anna muutettavan asiakkaan nimi tai asiakasnumero ja paina OK");
+
+    }//GEN-LAST:event_muutaNappiActionPerformed
 
     /**
      * @param args the command line arguments

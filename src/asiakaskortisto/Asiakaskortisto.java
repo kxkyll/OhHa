@@ -47,6 +47,7 @@ public class Asiakaskortisto {
         }
 
         logiikka.suorita();
+        KirjautumisUI gkirjaudu = new KirjautumisUI();
 
         }
 
