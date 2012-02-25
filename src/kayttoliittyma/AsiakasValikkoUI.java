@@ -484,32 +484,32 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
 
     private boolean tiedotAnnettu() {
         if (asiakasNimi.getText().isEmpty()) {
-            viesti.setText("Anna asiakkaan nimi");
+            viesti.setText("Anna asiakkaan nimi ja paina OK");
             asiakasNimi.grabFocus();
             return false;
         }
         if (asiakasOsoite.getText().isEmpty()) {
-            viesti.setText("Anna asiakkaan osoite");
+            viesti.setText("Anna asiakkaan osoite ja paina OK");
             asiakasOsoite.grabFocus();
             return false;
         }
         if (asiakasPostinumero.getText().isEmpty()) {
-            viesti.setText("Anna asiakkaan postinumero");
+            viesti.setText("Anna asiakkaan postinumero ja paina OK");
             asiakasPostinumero.grabFocus();
             return false;
         }
         if (asiakasToimipaikka.getText().isEmpty()) {
-            viesti.setText("Anna asiakkaan toimipaikka");
+            viesti.setText("Anna asiakkaan toimipaikka ja paina OK");
             asiakasToimipaikka.grabFocus();
             return false;
         }
         if (asiakasYhteyshenkilo.getText().isEmpty()) {
-            viesti.setText("Anna asiakkaan yhteyshenkilo");
+            viesti.setText("Anna asiakkaan yhteyshenkilo ja paina OK");
             asiakasYhteyshenkilo.grabFocus();
             return false;
         }
         if (asiakasPuhelinnumero.getText().isEmpty()) {
-            viesti.setText("Anna asiakkaan puhelinnumero");
+            viesti.setText("Anna asiakkaan puhelinnumero ja paina OK");
             asiakasPuhelinnumero.grabFocus();
             return false;
         }

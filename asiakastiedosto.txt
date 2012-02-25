@@ -2,12 +2,13 @@
 10013;Aapeli;Aakkostie 1;45427 Asiakkala;878-987654;Anne Aapeli;19.02.2012;ARKISTOITU
 10019;Nuohooja;Nokikatu 9;00280 Inttala;765-8765;Pekka Pomo;22.02.2012;NORMAALI
 10023;VikaVille;Inkkaritie 22;45432 Inkkarila;987-567891;Ville Vinha;22.02.2012;NORMAALI
-10011;3 Oy;Ikkunakuja 8;876543 Ikaalinen;989-765432;Inna Ikkuna;19.02.2012;ARKISTOITU
+10011;3 Oy;Jokuosoite;876543 Ikaalinen;989-765432;Inna Ikkuna;19.02.2012;ARKISTOITU
 10012;Puutiainen;Puupolku 5;67876 Puumala;987-456789;Pekka Puu;19.02.2012;NORMAALI
 10008;Ihqu Oy;Rantatie 6;98765 Rantala;987-678858;Ville Rannikko;12.02.2012;NORMAALI
 10017;Pizzapojat;Kaarikuja 6;00940 Helsinki;020-555342;Pablo Florenz;22.02.2012;NORMAALI
+10026;Joku uusi ry;Asiakaskatu 6;00110 Espoo;767-789789;Matti Mäkelä;25.02.2012;NORMAALI
 10015;Lumilinko Oy;Tunturitie 4;01110 Paakaupunki;010-234235;Lasse Linkola;19.02.2012;NORMAALI
-10018;Demoefekti;Kumpulankatu 55;00520 Helsinki;878-6543;Demo Efekti;21.02.2012;NORMAALI
+10018;Demoefekti;Kumpulankatu 55;00510 Helsinki;878-6543;Demo Efekti;21.02.2012;NORMAALI
 10025;Uusiasiakas;jjj;87698 765456;876-765678;iiiim;24.02.2012;NORMAALI
 10022;JuuriLisatty;Juurikuja 9;65435 Juuramo;876-34567;Julle Juurikas;22.02.2012;ARKISTOITU
 10014;JokuToinen;Kotikatu 6;767898 Hakala;212-323454;Anne Jokula;19.02.2012;ARKISTOITU
@@ -19,7 +20,8 @@
 10006;Lumia;Lumikuja 4;87654 Lumela;987-654321;Luulia Lumi;19.02.2012;NORMAALI
 10010;Kolmasasiakas;Testikatu 3;00330 Kolmala;030-989898;Karoliina Kolmas;12.02.2012;NORMAALI
 10000;Asiakas;Lumikuja 8 A6;98765 Pikkala;343-454646;Janne Joku;19.02.2012;ARKISTOITU
+10027;Vielä toinen;Jokutie 3;87656 ijuy;878909;yhgt;25.02.2012;NORMAALI
 10021;VirkeaAamu Oy;Aamuruskontie 4;98712 Tampere;876-43567;Hannu Jalas;21.02.2012;NORMAALI
 10020;InnaPinna;Katu 2;99876 Puikkola;765-432198;Jaana Joki;20.01.2012;NORMAALI
-10007;Kissala;oijlkj 6;98765 Innala;876-3456;Keijo Kissa;12.12.2011;NORMAALI
 10009;Uusi;Uusitie 3;98789 Uusimaa;876-654325;Ulla Uutela;12.02.2012;NORMAALI
+10007;Kissala;oijlkj 6;98765 Innala;876-3456;Keijo Kissa;12.12.2011;ARKISTOITU

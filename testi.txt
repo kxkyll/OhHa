@@ -1,1 +1,1 @@
-;Autola;Sorareitti 6;34567 Tuusula;040-676334;Matti Mikko;13.01.2012;NORMAALI
+;Koirakoulu ry;Katuosoite 2;88978 Rajakylä;0400-11223334;Teemu Topakka;22.02.2012;NORMAALI
