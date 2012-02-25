@@ -1,2 +1,1 @@
-10999;Testi Oy;Testitie 3;12345 Uusimaa;111-2223334;Teppo Testi;19.02.2012;NORMAALI
-11000;Vesti Oy;Vestitie 4;22345 Tusimaa;222-2223334;Veppo Vesti;19.02.2012;NORMAALI
+;Autola;Sorareitti 6;34567 Tuusula;040-676334;Matti Mikko;13.01.2012;NORMAALI

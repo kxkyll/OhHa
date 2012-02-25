@@ -4,10 +4,10 @@
  */
 package asiakaskortisto;
 
+import asiakaskortisto.Asiakas.Tila;
 import java.io.IOException;
 import java.util.*;
 import tiedostonkasittelija.AsiakastiedostonKasittelija;
-import asiakaskortisto.Asiakas.Tila;
 
 /**
  * Asiakaskortisto-ohjelman sovelluslogiikka

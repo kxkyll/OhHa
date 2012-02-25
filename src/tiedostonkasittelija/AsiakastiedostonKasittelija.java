@@ -27,17 +27,19 @@ public class AsiakastiedostonKasittelija {
     private Object tiedostonKayttaja;
     /** tiedostonNimi on käsiteltävän tiedoston nimi */
     private String tiedostonNimi;
-    private ArrayList<String> tiedostonRivit;
+    private ArrayList<String> tiedostonRivit ;
     private HashMap<String, Asiakas> asiakaslista;
 
     public AsiakastiedostonKasittelija(Asiakkaat tiedostonKayttaja) throws IOException {
         this.tiedostonKayttaja = tiedostonKayttaja;
         tiedostonNimi = tiedostonKayttaja.getTiedostonNimi();
+        tiedostonRivit = new ArrayList<String>();
         
     }
 
     public AsiakastiedostonKasittelija(String tiedostonNimi) {
         this.tiedostonNimi = tiedostonNimi;
+        tiedostonRivit = new ArrayList<String>();
     }
     
     
@@ -52,7 +54,8 @@ public class AsiakastiedostonKasittelija {
         /** Ohjelman alussa luetaan asiakastiedot tiedostosta rivi kerrallaan 
           * ja talletetaan ne ArrayList listalle nimeltä tiedostostaLuetut */
         File tiedosto = new File(tiedostonNimi);
-        tiedostonRivit = new ArrayList<String>();
+        //siirretty konstruktoriin 24.2 testausta varten
+        //tiedostonRivit = new ArrayList<String>();
         try {
             Scanner tiedostolukija = new Scanner(tiedosto);
             while (tiedostolukija.hasNextLine()) {
