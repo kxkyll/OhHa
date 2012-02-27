@@ -37,11 +37,11 @@ public class KayttajatiedostonKasittelija {
         tiedostonNimi = kirjautumisKayttaja.getTiedostonNimi();
     }
 
+    /**
+     * Ohjelman alussa luetaan käyttäjätiedot tiedostosta rivi kerrallaan ja
+     * talletetaan ne listalle
+     */
     public HashMap<String, Kayttaja> lueTiedostosta() throws IOException {
-        /**
-         * Ohjelman alussa luetaan käyttäjätiedot tiedostosta rivi kerrallaan ja
-         * talletetaan ne listalle nimeltä tiedostostaLuetut
-         */
         File tiedosto = new File(tiedostonNimi);
         tiedostonRivit = new ArrayList<String>();
         try {
@@ -58,24 +58,28 @@ public class KayttajatiedostonKasittelija {
 
     }
 
+    /**
+     * Luo tiedostoista luetuista käyttäjäriveistä listan
+     */
     private HashMap<String, Kayttaja> laitaKayttajatListalle() {
         kayttajalista = new HashMap<String, Kayttaja>();
         for (String luettu : tiedostonRivit) {
             Kayttaja uusiKayttaja = luoKayttaja(luettu);
-    
+
             if (uusiKayttaja != null) {
                 kayttajalista.put(uusiKayttaja.getKayttajaTunnus(), uusiKayttaja);
             }
-    
+
         }
         return kayttajalista;
     }
 
+    /**
+     * Luo tiedostoista luetuista käyttäjäriveistä jokaisesta rivistä
+     * käyttäjäolion
+     */
     private Kayttaja luoKayttaja(String luettu) {
-        /**
-         * Luo tiedostoista luetuista asiakastiedoston jokaisesta rivistä
-         * asiakastiedot olion
-         */
+
         String taulukko[] = luettu.split(";");
         if (taulukko.length == 3) {
             String kayttajaTunnus = taulukko[0];
@@ -87,6 +91,10 @@ public class KayttajatiedostonKasittelija {
         return null;
     }
 
+    /**
+     * kirjoitetaan käyttäjän tiedot listalta riveittäin ja kutsutaan
+     * tiedostoonkirjoitusta
+     */
     public void kirjoitaKayttajatTiedostoon(HashMap<String, Kayttaja> lista) throws IOException {
         tiedostonRivit.clear();
         for (String kayttaja : lista.keySet()) {
@@ -98,10 +106,10 @@ public class KayttajatiedostonKasittelija {
 
     }
 
+    /**
+     * Kirjoitetaan käyttäjätunnukset tiedostoon
+     */
     public void kirjoitaTiedostoon() throws IOException {
-        /**
-         * Ohjelman lopuksi kirjoitetaan asiakastiedot tiedostoon
-         */
         File tiedosto = new File(tiedostonNimi);
         FileWriter kirjoittaja = new FileWriter(tiedosto);
 
@@ -111,10 +119,10 @@ public class KayttajatiedostonKasittelija {
         kirjoittaja.close();
     }
 
+    /**
+     * Jos tiedostoa ei ole olemassa, luodaan tyhjä tiedosto
+     */
     public void luoTiedosto() throws IOException {
-        /**
-         * Jos tiedostoa ei ole olemassa, luodaan tyhjä tiedosto
-         */
         FileWriter kirjoittaja = null;
         try {
             File tiedosto = new File(tiedostonNimi);

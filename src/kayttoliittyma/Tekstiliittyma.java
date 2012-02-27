@@ -100,6 +100,9 @@ public class Tekstiliittyma {
     }
 
     public int kysyHakutapa() {
+        /**
+         * Metodi kysyHakutapa kysyy käyttäjältä haetaanko asiakastietoja asiakasnumerolla vai nimellä
+         */
         System.out.println("Haetaanko asiakasnumerolla vai asiakkaan nimellä ?");
         int hakutapa = 0;
         while (hakutapa != 1 && hakutapa != 2) {
@@ -113,6 +116,9 @@ public class Tekstiliittyma {
     }
 
     public String kysyAsiakasnumero() {
+        /**
+         * Metodi kysyAsiakasnumero kysyy käyttäjältä asiakasnumeron
+         */
         String asiakasnumero = "";
         while (asiakasnumero.equals("")) {
             System.out.print("Anna asiakasnumero:");
@@ -123,6 +129,9 @@ public class Tekstiliittyma {
     }
 
     public String kysyAsiakkaanNimi() {
+        /**
+         * Metodi kysyAsiakasnumero kysyy käyttäjältä asiakkaan nimen
+         */
         String asiakasnimi = "";
         while (asiakasnimi.equals("")) {
             System.out.print("Anna asiakkaan nimi:");
@@ -133,11 +142,17 @@ public class Tekstiliittyma {
     }
 
     public String kysyPoistettavaAsiakas() {
+        /**
+         * Metodi kysyy käyttäjältä poistettavan asiakkaan asiakasnumeron
+         */
         System.out.println("Asiakkaan poisto");
         return kysyAsiakasnumero();
     }
 
     public Asiakas kysyMuutettavaAsiakas() {
+        /**
+         * Metodi kysyAsiakasnumero kysyy käyttäjältä muutettavan asiakkaan asiakastietoja
+         */
         System.out.println("Anna vain muuttunut asiakastieto: ");
         System.out.println("muut voit ohittaa enterin painalluksella");
         
@@ -165,6 +180,9 @@ public class Tekstiliittyma {
     }
 
     public Kayttaja kysyKirjautumisTiedot() {
+        /**
+         * Metodi pyytää käyttäjää antamaan kirjautumistiedot
+         */
         String kayttajatunnus = "";
         String salasana = "";
         while (kayttajatunnus.equals("")) {

@@ -20,6 +20,10 @@ import java.util.logging.Logger;
  */
 public class AsiakasValikkoUI extends javax.swing.JFrame {
 
+    /**
+     * AsiakasValikkoUI luokka on graafinen käyttöliittymä asiakaskortiston
+     * käyttämistä varten Käyttäjän tulee olla kirjautunut järjestelmään
+     */
     static String mitaPainettu;
     private Asiakkaat asiakkaat;
     private Asiakas vanha;
@@ -31,7 +35,7 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
      */
     public AsiakasValikkoUI() throws IOException {
         initComponents();
-        // asiakasLista.add("testi1", rootPane);
+
         asiakkaat = new Asiakkaat();
         tamaPaiva = Calendar.getInstance();
         formatter = new SimpleDateFormat("dd.MM.yyyy");
@@ -310,8 +314,12 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void poistuNappiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_poistuNappiActionPerformed
+        /**
+         * kun käyttäjä on painanut käyttäliittymän poistu nappia tallennetaan
+         * asiakkaat tiedostoon ja lopetetaan ohjelman suoritus
+         */
         try {
-            // TODO add your handling code here:
+
             asiakkaat.asiakkaatTiedostoon();
         } catch (IOException ex) {
             Logger.getLogger(AsiakasValikkoUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -332,7 +340,12 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
     }//GEN-LAST:event_asiakasNumeroActionPerformed
 
     private void listaaNappiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaaNappiActionPerformed
-
+        /**
+         * kun käyttäjä on painanut käyttäliittymän listaa nappia kutsutaan
+         * asiakasolion listaaAsiakkaat metodia ja näytetään asiakaslistaus
+         * käyttöliittymän asiakaslistalla
+         *
+         */
         String asiakaslistaus = asiakkaat.listaaAsiakkaat(); // TODO add your handling code here:
         String[] lista = asiakaslistaus.split("\n");
 
@@ -341,6 +354,11 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
     }//GEN-LAST:event_listaaNappiActionPerformed
 
     private void haeNappiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_haeNappiActionPerformed
+        /**
+         * kun käyttäjä on painanut käyttäliittymän hae nappia vaihdetaan
+         * asiakasta neuvova viesti ja pyydetään hakuehtoa
+         *
+         */
         putsaaTiedot();
         viesti.setText("Anna hakuehdoksi asiakkaan nimi tai  asiakasnumero ja paina OK");
         mitaPainettu = "hae";
@@ -349,7 +367,11 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
     }//GEN-LAST:event_haeNappiActionPerformed
 
     private void okNappiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okNappiActionPerformed
-        // TODO add your handling code here:
+        /**
+         * kun käyttäjä on painanut ok nappia käsitellään edellisen painalluksen
+         * johdosta pyydetty toimenpide, haku, lisäys, muutos tai poisto
+         *
+         */
         String haettu;
         String hakutaulu[];
         if (mitaPainettu.equals("hae")) {
@@ -428,6 +450,13 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
     }//GEN-LAST:event_okNappiActionPerformed
 
     private void haeTiedot() {
+        /**
+         * kun käyttäjä on painanut käyttäliittymän hae nappia ja antanut
+         * hakuehdon kutsutaan asiakasolion hae-metodeja annetun hakuehdon
+         * mukaisestija näytetään haetun asiakkaan tiedot käyttöliittymän
+         * asiakaslistalla
+         *
+         */
         String haettu;
         String hakutaulu[];
         if (!asiakasNumero.getText().isEmpty()) {
@@ -455,6 +484,10 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
     }
 
     private void putsaaTiedot() {
+        /**
+         * Metodi putsaaTiedot pyyhkii vanhat asiakastiedot käyttöliittymän
+         * ikkunasta
+         */
         asiakasNimi.setText("");
         asiakasNumero.setEditable(true);
         asiakasNumero.setFocusable(rootPaneCheckingEnabled);
@@ -469,6 +502,9 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
     }
 
     private void asetaAsiakas(Asiakas a) {
+        /**
+         * Metodi asetaAsiakas lisää asiakastiedot käyttöliittymän ikkunaan
+         */
         asiakasNimi.setText(a.getAsiakasNimi());
         asiakasNumero.setEditable(true);
         asiakasNumero.setFocusable(rootPaneCheckingEnabled);
@@ -483,6 +519,12 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
     }
 
     private boolean tiedotAnnettu() {
+        /**
+         * metodi tiedotAnnettu tarkastaa onko käyttäjä antanut kaikki
+         * tarpeelliset asiakastiedot, mikäli jokin tieto puuttuu viedään
+         * kohdistin tämän tiedon kohdalle ja pyydetään käyttäjää lisäämään
+         * puuttuva tieto
+         */
         if (asiakasNimi.getText().isEmpty()) {
             viesti.setText("Anna asiakkaan nimi ja paina OK");
             asiakasNimi.grabFocus();
@@ -517,8 +559,10 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
     }
 
     private void lisaaNappiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lisaaNappiActionPerformed
-        // TODO add your handling code here:
-
+        /**
+         * Kun käyttäjä on painanut lisää nappia, pyydetään häntä antamaan
+         * asiakastiedot
+         */
         putsaaTiedot();
         asiakasNumero.setText(Integer.toString(asiakkaat.getSeuraavaAsiakasnumero()));
         asiakasNumero.setCaretColor(Color.GRAY);
@@ -531,6 +575,10 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
     }//GEN-LAST:event_lisaaNappiActionPerformed
 
     private void poistaNappiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_poistaNappiActionPerformed
+        /**
+         * Kun käyttäjä on painanut poista nappi, pyydetään häntä antamaan
+         * poistettavan asiakkaan hakutieto ja painamaan Ok nappia.
+         */
         mitaPainettu = "poista";
         putsaaTiedot();
         viesti.setText("Anna poistettavan asiakkaan nimi tai asiakasnumero ja paina OK");
@@ -539,7 +587,10 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
     }//GEN-LAST:event_poistaNappiActionPerformed
 
     private void muutaNappiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_muutaNappiActionPerformed
-        // TODO add your handling code here:
+        /**
+         * Kun käyttäjä on painanut muuta nappia pyydetään häntä antamaan
+         * muutettavan asiakkaan nimi tai asiakasnumero ja painamaan ok nappia
+         */
         mitaPainettu = "muuta";
         putsaaTiedot();
         viesti.setText("Anna muutettavan asiakkaan nimi tai asiakasnumero ja paina OK");
@@ -550,7 +601,10 @@ public class AsiakasValikkoUI extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public void aloita() {
-    //public static void main(String args[]) {
+        /**
+         * Metodi aloita käynnistää graafisen käyttöliittymän asiakaskoristoon
+         */
+        //public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
          */

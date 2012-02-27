@@ -13,7 +13,8 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Kati
+ * @author Kati Luokka KirjautumisUI on graafisen käyttöliittymän kirjautmista
+ * pyytävä luokka
  */
 public class KirjautumisUI extends javax.swing.JFrame {
 
@@ -142,7 +143,16 @@ public class KirjautumisUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void KirjauduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KirjauduActionPerformed
-
+        /**
+         * Käyttäjän painettu kirjaudu nappia kirjautumislaskurin arvoa
+         * kasvatetaan pyydetään Kirjaudu oliota tarkistamaan täsmäävätkö
+         * annetut käyttäjätunnus ja salasana ohjelman tallentamiin Käyttäjällä
+         * on 3 mahdollisuutta yrittää, sen jälkeen jos tiedot eivät täsmää
+         * ohjelman suoritus päättyy
+         *
+         * Käyttäjän eri rooleilla ei ole tässä toteutuksessa merkitystä, vaan
+         * sallitut toiminnot ovat samat roolista riippumatta.
+         */
         Rooli kirjautujanrooli = null;
         String kayttajaTunnus = kayttajatunnus.getText();
         String salaSana = salasana.getText();
@@ -182,7 +192,7 @@ public class KirjautumisUI extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(KirjautumisUI.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
         if (kirjautujanrooli == Rooli.ESIMIES) {
             System.out.println("esimies");
@@ -207,14 +217,17 @@ public class KirjautumisUI extends javax.swing.JFrame {
     }//GEN-LAST:event_KirjauduActionPerformed
 
     private void PoistuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PoistuActionPerformed
+        /**
+         * Käyttäjän painettua poistu nappia ohjelman suoritus päättyy
+         */
         System.exit(0);
     }//GEN-LAST:event_PoistuActionPerformed
 
     /**
      * @param args the command line arguments
      */
-public void kaynnisty() {
-    //public static void main(String args[]) {
+    public void kaynnisty() {
+        //public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
          */

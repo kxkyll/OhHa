@@ -6,22 +6,26 @@ package asiakaskortisto;
 
 
 /** Kayttäjän tieto tieto-olio
- *
+ * Käyttäjän käyttäjätunnuksen, salasanan ja roolin tiedot
  * @author Kati
  */
 public class Kayttaja {
-/** Käyttäjän käyttäjätunnuksen, salasanan ja roolin tiedot*/
+
     
-   
+   /** Käyttäjän käyttäjätunnus*/
     private String kayttajaTunnus;
+    /** Käyttäjän salasana */
     private String salasana;
+    /** Käyttäjän rooli */
     private Rooli rooli;
 
+    /** Konstruktori käyttjäluokalle, joka asettaa käyttäjätunnuksen ja salasanan */
     public Kayttaja(String kayttajaTunnus, String salasana) {
         this.kayttajaTunnus = kayttajaTunnus;
         this.salasana = salasana;
     }
 
+    /** Konstruktori käyttjäluokalle joka asettaa käyttätunnuksen, salasanan ja rooli */
     public Kayttaja(String kayttajaTunnus, String salasana, Rooli rooli) {
         this.kayttajaTunnus = kayttajaTunnus;
         this.salasana = salasana;

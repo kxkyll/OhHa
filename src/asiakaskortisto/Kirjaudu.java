@@ -8,21 +8,25 @@ import asiakaskortisto.Kayttaja.Rooli;
 import java.io.IOException;
 import java.util.HashMap;
 import tiedostonkasittelija.KayttajatiedostonKasittelija;
+/**
+     * Luokka Kirjaudu tarkistaa täsmäävätkö käyttäjän antama käyttäjätunnus ja
+     * salasana ohjelman tallentamiin vastinkappaleisiin
+     * Metodi käyttää tiedostonlukemiseen Käyttäjätiedostonkäsittelijäoliota
+     * 
+     * * @author Kati 
+     */
 
+public class Kirjaudu {
 /**
  *
- * @author Kati Käyttäjän käyttäjätunnuksen ja salasanan tarkistus
+  * Käyttäjän käyttäjätunnuksen ja salasanan tarkistus
  */
-public class Kirjaudu {
-
-    /**
-     * Pyydetään käyttäjältä käyttäjätunnus ja salasana ja tarkastetaan
-     * täsmäävätkö ne salasanatiedostossa oleviin
-     */
+    
     private String tiedostonNimi = "hys.hys";
     private KayttajatiedostonKasittelija salatiedosto;
     private HashMap<String, Kayttaja> kayttajalista = new HashMap<String, Kayttaja>();
 
+    /** Konstruktori pyytää käyttäjätiedostonkäsittelijää lukemaan käyttjätiedot salsanatiedostosta*/
     public Kirjaudu() throws IOException {
         salatiedosto = new KayttajatiedostonKasittelija(this);
         kayttajalista = salatiedosto.lueTiedostosta();
@@ -32,11 +36,12 @@ public class Kirjaudu {
         return tiedostonNimi;
     }
 
-    public Rooli tarkistaKirjautuminen(Kayttaja kirjautuja) {
-        /**
+    /**
          * Tarkistetaan löytyvätkö annettu käyttäjätunnus & salasanapari
          * tiedostosta
          */
+    public Rooli tarkistaKirjautuminen(Kayttaja kirjautuja) {
+        
         if (kayttajalista.isEmpty()) {
             return null;
         }
@@ -54,10 +59,9 @@ public class Kirjaudu {
         return null;
 
     }
-
-    public void tulostaSalasanalista() {
-        for (String kayttajatunnus : kayttajalista.keySet()) {
-            System.out.println(kayttajatunnus);
-        }
-    }
+//    public void tulostaSalasanalista() {
+//        for (String kayttajatunnus : kayttajalista.keySet()) {
+//            System.out.println(kayttajatunnus);
+//        }
+//    }
 }

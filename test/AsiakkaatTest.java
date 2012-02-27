@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import static org.junit.Assert.*;
 import org.junit.*;
 
@@ -47,7 +48,7 @@ public class AsiakkaatTest {
 
     @After
     public void tearDown() throws IOException {
-       tiedosto.deleteOnExit();
+        tiedosto.deleteOnExit();
     }
 
     @Test
@@ -67,10 +68,10 @@ public class AsiakkaatTest {
     public void lisaayksiAsiakasOK() throws IOException {
         Asiakkaat as = new Asiakkaat(tiedostonNimi);
         int asiakasmaara = as.getKaikkienAsiakkaidenMaara();
-      
+
         as.lisaaAsiakas(new Asiakas("", "Testi3Asiakas", "Testikatu 3",
                 "11122 Testikyla", "111-2222222", "Terttu Testaaja", "19-02-2012", Tila.NORMAALI));
-      
+
         assertEquals((asiakasmaara + 1), as.getKaikkienAsiakkaidenMaara());
 
     }
@@ -79,23 +80,47 @@ public class AsiakkaatTest {
     public void lisaaMontaAsiakastaOK() throws IOException {
         Asiakkaat as = new Asiakkaat(tiedostonNimi);
         int asiakasmaara = as.getKaikkienAsiakkaidenMaara();
-        System.out.println("asiakasmaara ennen " + asiakasmaara);
+
         as.lisaaAsiakas(new Asiakas("", "Testi4Asiakas", "Testikatu 4",
                 "11122 Testikyla", "111-2222224", "Terttu Testaaja", "19-02-2012", Tila.NORMAALI));
         as.lisaaAsiakas(new Asiakas("", "Testi5Asiakas", "Testikatu 5",
                 "11122 Testikyla", "111-2222225", "Kerttu Testaaja", "19-02-2012", Tila.NORMAALI));
         as.lisaaAsiakas(new Asiakas("", "Testi6Asiakas", "Testikatu 6",
                 "11122 Testikyla", "111-2222226", "Perttu Testaaja", "19-02-2012", Tila.NORMAALI));
-        System.out.println("asiakasmaara jälkeen " + as.getKaikkienAsiakkaidenMaara());
+
         assertEquals((asiakasmaara + 3), as.getKaikkienAsiakkaidenMaara());
 
     }
-    
-    
+
+    @Test
+    public void lisaa100AsiakastaListallejaTiedostoon() throws IOException {
+        Asiakkaat as = new Asiakkaat(tiedostonNimi);
+        
+        int asiakkaitaTiedostossa = 0;
+        int i = 0;
+        while (i > 99) {
+            as.lisaaAsiakas(new Asiakas("", "Testi4Asiakas", "Testikatu 4",
+                    "11122 Testikyla", "111-2222224", "Terttu Testaaja", "19-02-2012", Tila.NORMAALI));
+            i++;
+        }
+        as.asiakkaatTiedostoon();
+
+        Scanner tiedostolukija = new Scanner(tiedosto);
+        while (tiedostolukija.hasNextLine()) {
+            asiakkaitaTiedostossa++;
+        }
+
+        tiedostolukija.close();
+
+        assertEquals(asiakkaitaTiedostossa, as.getKaikkienAsiakkaidenMaara());
+
+    }
+
     @Test
     public void haeAsiakasAsiakasNumerollaOK() throws IOException {
 
-        Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
+
+          Asiakkaat as = new Asiakkaat(tiedostonNimi);
         as.lisaaAsiakas(new Asiakas("", "TestiAs9", "TestiAs1Os 1",
                 "11122 Testikyla", "111-2222222", "Terttu Testaaja", "19-02-2012", Tila.NORMAALI));
         Asiakas haettuAsiakas = as.haeAsiakasOlioNimella("TestiAs9");
@@ -109,15 +134,15 @@ public class AsiakkaatTest {
     @Test
     public void haeAsiakasOlioAsiakasNumerollaOK() throws IOException {
 
-        Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
+        Asiakkaat as = new Asiakkaat(tiedostonNimi);
         String lisaaAsiakas = as.lisaaAsiakas(new Asiakas("", "TestiAs9", "TestiAs1Os 1",
-                                    "11122 Testikyla", "111-2222222", "Terttu Testaaja", "19-02-2012", Tila.NORMAALI));
-        String []ltaulu = lisaaAsiakas.split(" ");
+                "11122 Testikyla", "111-2222222", "Terttu Testaaja", "19-02-2012", Tila.NORMAALI));
+        String[] ltaulu = lisaaAsiakas.split(" ");
         String asiakasnumero = ltaulu[0];
         String haettu = "";
         Asiakas a = as.haeAsiakasOlioAsiakasnumerolla(asiakasnumero);
         if (a != null) {
-            System.out.println("a ei null");
+            //System.out.println("a ei null");
             haettu = a.getAsiakasNumero();
         }
         System.out.println(asiakasnumero + " " + haettu);
@@ -128,7 +153,7 @@ public class AsiakkaatTest {
     @Test
     public void haeAsiakasAsiakasNumerollaNOK() throws IOException {
 
-        Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
+        Asiakkaat as = new Asiakkaat(tiedostonNimi);
         String asiakasnumero = "66666";
         String haettu = as.haeAsiakasAsiakasnumerolla(asiakasnumero);
         String[] hakutaulu = haettu.split(" ");
@@ -139,7 +164,7 @@ public class AsiakkaatTest {
     @Test
     public void haeAsiakasAsiakasNumerollaNOK_hakuehtoTyhja() throws IOException {
 
-        Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
+        Asiakkaat as = new Asiakkaat(tiedostonNimi);
         String asiakasnumero = "";
         String haettu = as.haeAsiakasAsiakasnumerolla(asiakasnumero);
         //Testi hajoaa, jos virheimoitusta muutetaan koodissa
@@ -150,32 +175,51 @@ public class AsiakkaatTest {
     @Test
     public void haeAsiakasAsiakasNumerollaNOK_hakuehtoTekstia() throws IOException {
 
-        Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
+        Asiakkaat as = new Asiakkaat(tiedostonNimi);
         String asiakasnumero = "abc";
         String haettu = as.haeAsiakasAsiakasnumerolla(asiakasnumero);
-        String[] hakutaulu = haettu.split(" ");
+        
         assertFalse(haettu.contains(asiakasnumero));
 
     }
 
     @Test
     public void haeAsiakasOlioAsiakasNumerollaNOK() throws IOException {
-        Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
+        Asiakkaat as = new Asiakkaat(tiedostonNimi);
         String asiakasnumero = "66666";
         String haettu = "";
         Asiakas a = as.haeAsiakasOlioAsiakasnumerolla(asiakasnumero);
         if (a != null) {
             haettu = a.getAsiakasNumero();
         }
-        //asiakas on null, koska tälläistä asiakasta ei ole, miten testataan
+        //asiakas on null, koska tälläistä asiakasta ei ole
         assertNotSame(asiakasnumero, haettu);
     }
+    
+    @Test
+    public void haeAsiakasOlioTyhjallaAsiakasNumerollaNOK() throws IOException {
+        Asiakkaat as = new Asiakkaat(tiedostonNimi);
+        //Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
+        String asiakasnumero = "";
+        String haettu = "";
+        Asiakas a = as.haeAsiakasOlioAsiakasnumerolla(asiakasnumero);
+        if (a != null) {
+            haettu = a.getAsiakasNumero();
+        }
+        //asiakas on null, koska tälläistä asiakasta ei ole
+        assertSame(asiakasnumero, haettu);
+    }
+    
+
 
     @Test
     public void haeAsiakasNimellaOK() throws IOException {
 
-        Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
-        String nimi = "TestiAs1";
+
+        Asiakkaat as = new Asiakkaat(tiedostonNimi);
+        String lisaaAsiakas = as.lisaaAsiakas(new Asiakas("", "TestiAs9", "TestiAs1Os 1",
+                "11122 Testikyla", "111-2222222", "Terttu Testaaja", "19-02-2012", Tila.NORMAALI));
+        String nimi = "TestiAs9";
         String haettu = as.haeAsiakasNimella(nimi);
         assertTrue(haettu.contains(nimi));
     }
@@ -183,8 +227,10 @@ public class AsiakkaatTest {
     @Test
     public void haeAsiakasOlioNimellaOK() throws IOException {
 
-        Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
-        String nimi = "TestiAs1";
+        Asiakkaat as = new Asiakkaat(tiedostonNimi);
+        String lisaaAsiakas = as.lisaaAsiakas(new Asiakas("", "TestiAs9", "TestiAs1Os 1",
+                "11122 Testikyla", "111-2222222", "Terttu Testaaja", "19-02-2012", Tila.NORMAALI));
+        String nimi = "TestiAs9";
         String haettu = "";
         Asiakas a = as.haeAsiakasOlioNimella(nimi);
         if (a != null) {
@@ -197,8 +243,10 @@ public class AsiakkaatTest {
     @Test
     public void muutaAsiakasOK() throws IOException {
 
-        Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
-        String nimi = "TestiAs1";
+        Asiakkaat as = new Asiakkaat(tiedostonNimi);
+        String lisaaAsiakas = as.lisaaAsiakas(new Asiakas("", "TestiAs9", "TestiAs1Os 1",
+                "11122 Testikyla", "111-2222222", "Terttu Testaaja", "19-02-2012", Tila.NORMAALI));
+        String nimi = "TestiAs9";
         String uusiPuhelin = "888-222333";
         String muutettuPuhelin = "";
         Asiakas vanha = as.haeAsiakasOlioNimella(nimi);
@@ -218,7 +266,7 @@ public class AsiakkaatTest {
     @Test
     public void muutaAsiakasNOK() throws IOException {
 
-        Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
+        Asiakkaat as = new Asiakkaat(tiedostonNimi);
         String nimi = "TestiAs1";
         String uusiAsiakasnumero = "77777";
         String muutettuAsiakasnumero = "";
@@ -240,7 +288,18 @@ public class AsiakkaatTest {
     @Test
     public void tarkistaNumerojarjestys() throws IOException {
 
-        Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
+        Asiakkaat as = new Asiakkaat(tiedostonNimi);
+        int i = 0;
+        String nimi = "TestiAsiakas" +Integer.toString(i);
+        while (i>50) {
+            String lisaaAsiakas = as.lisaaAsiakas(new Asiakas("", nimi, "TestiAs1Os 1",
+                "11122 Testikyla", "111-2222222", "Terttu Testaaja", "19-02-2012", Tila.NORMAALI));
+            nimi = "TestiAsiakas" + Integer.toString(i);
+        }
+        
+        as.poistaAsiakas("TestiAsiakas4");
+        as.poistaAsiakas("TestiAsiakas7");
+        as.poistaAsiakas("TestiAsiakas41");
         ArrayList<Asiakas> asiakaslistaNumeroittain = as.getAsiakaslistaNumeroittain();
         Boolean ok = true;
         int edellinen = 0;
@@ -257,8 +316,10 @@ public class AsiakkaatTest {
     @Test
     public void poistaAsiakasOK() throws IOException {
 
-        Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
-        String nimi = "TestiAs1";
+        Asiakkaat as = new Asiakkaat(tiedostonNimi);
+        String lisaaAsiakas = as.lisaaAsiakas(new Asiakas("", "TestiAs9", "TestiAs1Os 1",
+                "11122 Testikyla", "111-2222222", "Terttu Testaaja", "19-02-2012", Tila.NORMAALI));
+        String nimi = "TestiAs9";
 
         Asiakas vanha = as.haeAsiakasOlioNimella(nimi);
         String poistettu = as.poistaAsiakas(vanha.getAsiakasNumero());
@@ -268,7 +329,7 @@ public class AsiakkaatTest {
 
     @Test
     public void poistaAsiakasNOK() throws IOException {
-        Asiakkaat as = new Asiakkaat("kirjoitustesti.txt");
+        Asiakkaat as = new Asiakkaat(tiedostonNimi);
         String numero = "66666";
         String poistettu = as.poistaAsiakas(numero);
         assertFalse(poistettu.contains(numero));

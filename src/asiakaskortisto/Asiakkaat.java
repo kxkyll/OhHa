@@ -3,26 +3,29 @@
  * and open the template in the editor.
  */
 package asiakaskortisto;
+/**
+ * Asiakaskortisto-ohjelman Asiakastoiminnot
+ *
+ * @author Kati
+ */
 
 import asiakaskortisto.Asiakas.Tila;
 import java.io.IOException;
 import java.util.*;
 import tiedostonkasittelija.AsiakastiedostonKasittelija;
 
+
 /**
- * Asiakaskortisto-ohjelman sovelluslogiikka
- *
- * @author Kati
- */
+     * luokka Asiakkaat sisältää kaikki Asiakasolioihin kohdistuvat metodit.
+     * Luokka kokoaa kaikki luodut asiakasoliot listalle.
+     */
 public class Asiakkaat {
 
-    /**
-     * Asiakastoiminnot
-     */
+    
     private String tiedostonNimi = "asiakastiedosto.txt";
     private HashMap<String, Asiakas> asiakaslista = new HashMap<String, Asiakas>();
     private ArrayList<Asiakas> asiakaslistaNumeroittain = new ArrayList<Asiakas>();
-    //private HashMap<Integer,Asiakas> asikasNumerot = new HashMap<Integer,Asiakas>();
+    
     AsiakastiedostonKasittelija tiedosto;
     private static int seuraavaAsiakasnumero;
 
@@ -54,18 +57,22 @@ public class Asiakkaat {
     }
 
     public int getKaikkienAsiakkaidenMaara() {
+        /**
+         * Metodi palauttaa kaikkien asiakkaitten määrän
+         */
         int maara = 0;
         for (String asiakasNimi : asiakaslista.keySet()) {
             maara++;
         }
-        //System.out.println("Määrä: " + maara);
+       
         return maara;
     }
-
-    public String listaaAsiakkaat() {
         /**
-         * Muotoiltu asiakaslistaus
+         * Metodi listaaAsiakkaat palauttaa muotoillun asiakaslistauksen
+         * asiakkaista, joiden tila on normaali.
+         * Arkistoituja asiakkaita ei näytetä.
          */
+    public String listaaAsiakkaat() {
         SortedSet<String> aakkostettu = new TreeSet<String>(asiakaslista.keySet());
         Iterator<String> it = aakkostettu.iterator();
 
@@ -75,7 +82,7 @@ public class Asiakkaat {
                 + String.format("%-25s", "Katuosoite ")
                 + String.format("%-25s", "Postiosoite ")
                 + String.format("%-25s", "Puhelinnumero")
-                +String.format("%-25s", "Yhteyshenkilo") +"\n";
+                + String.format("%-25s", "Yhteyshenkilo") + "\n";
 
 
         while (it.hasNext()) {
@@ -85,14 +92,15 @@ public class Asiakkaat {
             }
         }
 
-        
+
         return listalla;
     }
-
-    public String lisaaAsiakas(Asiakas uusiAsiakas) {
+    
         /**
-         * Lisätään uusi asiakas
+         * Metodi lisaaAsiakas lisää käyttäjältä kysyttyjen tietojen mukaisen
+         * uuden asiakasolion listalle.
          */
+    public String lisaaAsiakas(Asiakas uusiAsiakas) {
         if (uusiAsiakas != null) {
             if (uusiAsiakas.getAsiakasNumero().isEmpty()) {
                 uusiAsiakas.setAsiakasNumero(Integer.toString(seuraavaAsiakasnumero));
@@ -107,7 +115,14 @@ public class Asiakkaat {
         return null;
     }
 
+        /**
+         * Metodi poistaAsiakas muuttaa annetun asiakasnumeron perustella
+         * asiakkaan tilatiedon arkistoiduksi. Tällöin asiakasta ei enää näytetä
+         * listauksessa. Jos poistettavaa asiakasta ei löydy, palautetaan
+         * merkkijono "Poistettavaa asiakasta ei löytynyt";
+         */
     public String poistaAsiakas(String poistettava) {
+    
         String viesti = "Poistettavaa asiakasta ei löytynyt";
         for (Asiakas a : asiakaslistaNumeroittain) {
             if (a.getAsiakasNumero().equals(poistettava)) {
@@ -118,7 +133,13 @@ public class Asiakkaat {
         return viesti;
     }
 
+    /**
+         * Metodi muutaAsiakas muuttaa käyttäjän antamien tietojen perusteella,
+         * asiakkaan katuosoitetta, postiosoitetta, puhelinnumeroa tai
+         * yhteyshenkilöä Muita tietoja ei muuteta, vaan ne pysyvät samoina
+         */
     public String muutaAsiakas(Asiakas vanha, Asiakas muutettu) {
+        
         Asiakas a = asiakaslista.get(vanha.getAsiakasNimi());
         if (a != null) {
             asiakaslista.remove(a.getAsiakasNimi());
@@ -143,17 +164,7 @@ public class Asiakkaat {
         return a.toString();
     }
 
-    public Asiakas haeMuutettavaAsiakasnumerolla(String hakuehto) {
-
-        for (Asiakas a : asiakaslistaNumeroittain) {
-            if (a.getAsiakasNumero().equals(hakuehto)) {
-                return a;
-            }
-        }
-
-        return null;
-    }
-
+   
     public String haeAsiakasAsiakasnumerolla(String hakuehto) {
         String haettu = "Antamallasi asiakasnumerolla ei löytynyt asiakasta";
         for (Asiakas a : asiakaslistaNumeroittain) {
@@ -165,8 +176,12 @@ public class Asiakkaat {
         return haettu;
     }
 
+            /**
+         * Metodi haeAsiakasOlioAsiakasnumerolla hakee asiakasnumeron
+         * perusteella asiakasolion ja palauttaa sen kutsuvalle metodille. Jos
+         * asiakasta ei löydy palautetaan null-arvo
+         */
     public Asiakas haeAsiakasOlioAsiakasnumerolla(String hakuehto) {
-
         for (Asiakas a : asiakaslistaNumeroittain) {
             if (a.getAsiakasNumero().equals(hakuehto)) {
                 return a;
@@ -175,6 +190,12 @@ public class Asiakkaat {
         return null;
     }
 
+            /**
+         * Metodi haeAsiakasNimellä hakee asiakasnimen perusteella asiakkaan
+         * tiedot ja palauttaa merkkijonon joka sisältää asiakkaan tiedot Jos
+         * asiakasta ei löydy, palautetaan merkkijono "Antamallasi nimellä ei
+         * löytynyt asiakasta"
+         */
     public String haeAsiakasNimella(String hakuehto) {
         String haettu = "Antamallasi nimellä ei löytynyt asiakasta";
         if (asiakaslista.containsKey(hakuehto)) {
@@ -184,12 +205,22 @@ public class Asiakkaat {
 
     }
 
+            /**
+         * Metodi haeAsiakasOlioNimellä hakee asiakasnimen perusteella
+         * asiakasolion ja paluttaa asiakasolion Jos asiakasta ei löydy
+         * palautetaan tyhjä asiakasolio (null)
+         */
     public Asiakas haeAsiakasOlioNimella(String hakuehto) {
         Asiakas a = null;
         a = asiakaslista.get(hakuehto);
         return a;
     }
 
+            /**
+         * Metodi asiakkaatJarjestyslistalle laittaa tiedostostaluetut asiakkaat
+         * listalle asiakaslistaNumeroittain sekä järjestää ne
+         * asiakasnumeroittain nousevaan järjestykseen
+         */
     private void asiakkaatJarjestysListalle() {
         for (String asiakasNimi : asiakaslista.keySet()) {
             asiakaslistaNumeroittain.add(asiakaslista.get(asiakasNimi));
@@ -198,20 +229,22 @@ public class Asiakkaat {
         Collections.sort(asiakaslistaNumeroittain);
     }
 
-//    public String haeAsiakasAsiakasnumerolla(String hakuehto) {
-//        String haku = "Antamallasi numerolla ei löytynyt asiakasta";
-//        for (Asiakas a : asiakaslistaNumeroittain) {
-//            if (a.getAsiakasNumero().equals(hakuehto)) {
-//                return a.toString();
-//            }
-//        }
-//
-//        return haku;
-//    }
+            /**
+         * Metodi asiakkaatTiedostoon pyytää tiedostonkäsittelijää kirjoittamaan
+         * asiakaslistan tiedostoon. Metodia kutsutaan kun ohjelman suoritus
+         * lopetetaan.
+         */
     public void asiakkaatTiedostoon() throws IOException {
         tiedosto.kirjoitaAsiakkaatTiedostoon(asiakaslista);
     }
 
+            /**
+         * Asiakasnumerot generoidaan automaattisesti perustuen olemassaolevien
+         * asiakkaitten asiakasnumeroihin. Pienin mahdollinen asiakasnumero on
+         * 10000 Metodi haeSeuraavaAsiakasnumero etsii suurimman käytössäolevan
+         * asiakasnumeron ja palauttaa yhtä suuremman arvon.
+         *
+         */
     private int haeSeuraavaAsiakasnumero() {
         int suurin = Integer.MIN_VALUE;
         if (asiakaslistaNumeroittain.isEmpty()) {

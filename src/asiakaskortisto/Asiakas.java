@@ -4,37 +4,71 @@
  */
 package asiakaskortisto;
 
-
-/** Asiakkaan tieto-olio
+/**
+ * Asiakkaan tieto-olio sisältää kaikki asiakkaasta talletettavat tiedot
  *
  * @author Kati
  */
-public class Asiakas implements Comparable<Asiakas>{
-/** Asiakkaasta talletettavat tiedot*/
-    
-   
+public class Asiakas implements Comparable<Asiakas> {
+
+    /**
+     * Asiakasnumero generoidaan asiakasta luotaessa
+     */
     private String asiakasNumero;
+    /**
+     * Asiakasnimi on käyttäjän antama nimi asiakkaalle
+     */
     private String asiakasNimi;
+    /**
+     * Katuosoite on käyttäjän antama asiakkaan osoite
+     */
     private String katuOsoite;
+    /**
+     * Postiosoite on käyttäjän antama asiakkaan postiosoite
+     */
     private String postiOsoite;
+    /**
+     * Puhelinnumero on käyttäjän antama asiakkaan puhelinnumero
+     */
     private String puhelinnumero;
+    /**
+     * Yhteyshenkilö on käyttäjän antama asiakkaan yhteyshenkilö
+     */
     private String yhteyshenkilo;
+    /**
+     * Asiakkaaksitulopvm generoidaan asiakasta luotaessa
+     */
     private String asiakkaaksitulopvm;
-    private Tila tila; // N normaali, A arkistoitu
-    
+    /**
+     * Tila on joko Normaali tai Arkistoitu, Arkistoitu tarkoittaa että asiakas
+     * ei ole aktiivinen asiakas
+     */
+    private Tila tila; // Normaali, Arkistoitu
+
+   /** Asiakkaan tilatieto on joko Normaali tai Arkistoitu 
+    * Normaali on aktiivinen asiakas
+    * Arkistoitu on entinen asiakas
+    */
     public enum Tila {
+
         NORMAALI {
-    @Override
-    public String toString() {        return "NORMAALI";    }}, 
-        ARKISTOITU  {
-    @Override
-    public String toString() {        return "ARKISTOITU";    }}
+
+            @Override
+            public String toString() {
+                return "NORMAALI";
+            }
+        },
+        ARKISTOITU {
+
+            @Override
+            public String toString() {
+                return "ARKISTOITU";
+            }
+        }
     };
-    
-    
 
     public Asiakas(
-            String asiakasnumero, String nimi, String katuosoite, 
+            String asiakasnumero, String nimi, String katuosoite,
             String postiosoite, String puhelin,
             String yhteyshenkilo, String pvm, Tila tila) {
         this.asiakasNumero = asiakasnumero;
@@ -50,8 +84,8 @@ public class Asiakas implements Comparable<Asiakas>{
     public void setAsiakasNumero(String asiakasNumero) {
         this.asiakasNumero = asiakasNumero;
     }
-    
-    public void setTilaArkistoiduksi () {
+
+    public void setTilaArkistoiduksi() {
         this.tila = Tila.ARKISTOITU;
     }
 
@@ -70,9 +104,7 @@ public class Asiakas implements Comparable<Asiakas>{
     public void setYhteyshenkilo(String yhteyshenkilo) {
         this.yhteyshenkilo = yhteyshenkilo;
     }
-    
-    
-    
+
     public String getAsiakasNumero() {
         return asiakasNumero;
     }
@@ -101,30 +133,34 @@ public class Asiakas implements Comparable<Asiakas>{
         return yhteyshenkilo;
     }
 
-    
     public String getAsiakasNimi() {
         return asiakasNimi;
     }
-        
 
+    /**
+     * palautetaan asiakkaan tiedot muotoiltuna merkkijonona
+     */
     @Override
     public String toString() {
-      return "" + String.format("%-25s", asiakasNumero)
+        return "" + String.format("%-25s", asiakasNumero)
                 + String.format("%-25s", asiakasNimi)
                 + String.format("%-25s", katuOsoite)
                 + String.format("%-25s", postiOsoite)
                 + String.format("%-25s", puhelinnumero)
-                + 
-              String.format("%-25s", yhteyshenkilo) + "\n";
+                + String.format("%-25s", yhteyshenkilo) + "\n";
     }
 
+    /**
+         * Asiakasolioiden järjestäminen nousevaan asiakasnumerojärjestykseen
+         * tehdään compareTo metodin avulla
+         */
     @Override
     public int compareTo(Asiakas toinen) {
-	if (this.getAsiakasNumero().equals(toinen.getAsiakasNumero())) {
-	    return this.getAsiakasNumero().compareTo(toinen.getAsiakasNumero());
-	} else {
-	    return this.getAsiakasNimi().compareTo(toinen.getAsiakasNimi());
-	}
+        
+        if (this.getAsiakasNumero().equals(toinen.getAsiakasNumero())) {
+            return this.getAsiakasNumero().compareTo(toinen.getAsiakasNumero());
+        } else {
+            return this.getAsiakasNimi().compareTo(toinen.getAsiakasNimi());
+        }
     }
-
 }

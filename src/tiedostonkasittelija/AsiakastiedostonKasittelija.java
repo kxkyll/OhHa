@@ -49,10 +49,9 @@ public class AsiakastiedostonKasittelija {
     }
         
     
-
-    public HashMap<String,Asiakas> lueAsiakkaatTiedostosta() throws IOException {
         /** Ohjelman alussa luetaan asiakastiedot tiedostosta rivi kerrallaan 
           * ja talletetaan ne ArrayList listalle nimeltä tiedostostaLuetut */
+    public HashMap<String,Asiakas> lueAsiakkaatTiedostosta() throws IOException {
         File tiedosto = new File(tiedostonNimi);
         //siirretty konstruktoriin 24.2 testausta varten
         //tiedostonRivit = new ArrayList<String>();
@@ -70,10 +69,11 @@ public class AsiakastiedostonKasittelija {
        
     }
 
-    private HashMap<String,Asiakas> laitaAsiakkaatListalle() {
-/**
+    /**
 * Luodaan tiedostosta luetuista riveistä asiakaslista
 */
+    private HashMap<String,Asiakas> laitaAsiakkaatListalle() {
+
         asiakaslista = new HashMap<String, Asiakas>();
         for (String luettu : tiedostonRivit) {
             Asiakas uusiAsiakas = luoAsiakas(luettu);
@@ -86,11 +86,11 @@ public class AsiakastiedostonKasittelija {
         return asiakaslista;
     }
 
-    private Asiakas luoAsiakas(String luettu) {
-        /**
+          /**
          * Luo tiedostoista luetuista asiakastiedoston jokaisesta rivistä
          * asiakastiedot olion
          */
+      private Asiakas luoAsiakas(String luettu) {
         String taulukko[] = luettu.split(";");
         if (taulukko.length == 8) {
             String asiakasNumero = taulukko[0];
@@ -108,11 +108,12 @@ public class AsiakastiedostonKasittelija {
         return null;
     }
  
-    public void kirjoitaAsiakkaatTiedostoon(HashMap<String,Asiakas> lista) throws IOException {
-        /**
+            /**
          * Muokataan ohjelmansuoritusaikana mahdollisesti muuttuneet asiakastiedot
          * riveiksi, jotka voidaan kirjoittaa asiakastiedostoon
          */
+  
+    public void kirjoitaAsiakkaatTiedostoon(HashMap<String,Asiakas> lista) throws IOException {
         tiedostonRivit.clear();
         for (String asiakasNimi : lista.keySet()) {
             Asiakas a = lista.get(asiakasNimi);
@@ -126,11 +127,12 @@ public class AsiakastiedostonKasittelija {
 
 
     }
-    
-    public void kirjoitaTiedostoon() throws IOException {
-        /** 
+  
+          /** 
          * Ohjelman lopuksi kirjoitetaan asiakastiedot tiedostoon
          */
+  
+    public void kirjoitaTiedostoon() throws IOException {
         File tiedosto = new File(tiedostonNimi);
         FileWriter kirjoittaja = new FileWriter(tiedosto);
 
@@ -140,10 +142,10 @@ public class AsiakastiedostonKasittelija {
         kirjoittaja.close();
     }
 
-    public void luoTiedosto() throws IOException {
-        /** 
+          /** 
          * Jos tiedostoa ei ole  olemassa, luodaan tyhjä tiedosto 
          */
+      public void luoTiedosto() throws IOException {
         FileWriter kirjoittaja = null;
         try {
             File tiedosto = new File(tiedostonNimi);

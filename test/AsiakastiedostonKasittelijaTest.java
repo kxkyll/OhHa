@@ -16,6 +16,8 @@ import org.junit.*;
 import tiedostonkasittelija.AsiakastiedostonKasittelija;
 
 /**
+ * Asiakastiedostonkäsittelijä hoitaa asiakastiedoston luonnin, siihen
+ * kirjoituksen ja lukemisen
  *
  * @author Kati
  */
@@ -60,19 +62,13 @@ public class AsiakastiedostonKasittelijaTest {
 
     @After
     public void tearDown() throws IOException {
-        //kirjoittaja.close();
-        //tiedosto.deleteOnExit();
-        //    tyhjankirjoittaja.close();
+
+        tiedosto.deleteOnExit();
     }
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
 
     @Test
     public void testaaOnnistunutLuku() throws IOException {
 
-        //kirjoittaja.write(11111;Ekalisatty;Ekakatu 6;98789 Ekamaki;989-656787;Anne Yrjo;01.02.2012;NORMAALI);
-        //kirjoittaja.write(11112;Tokalisatty;Tokakatu 2;12789 Takamaki;121-115116;Janne Jaala;11.02.2012;NORMAALI);
 
         akasittelija = new AsiakastiedostonKasittelija(tiedostonNimi);
         asiakkaat = akasittelija.lueAsiakkaatTiedostosta();
@@ -81,34 +77,34 @@ public class AsiakastiedostonKasittelijaTest {
 
     @Test
     public void testaaLukuTyhjastaTiedostosta() throws IOException {
-        //kirjoittaja = new FileWriter(tiedostonNimi);
+
         kirjoittaja = new FileWriter(tiedosto);
         kirjoittaja.write("");
         kirjoittaja.close();
-//        Scanner tiedostolukija = new Scanner(tiedostonNimi);
+
         Scanner tiedostolukija = new Scanner(tiedosto);
         assertFalse("tiedosto ei tyhjä", tiedostolukija.hasNext());
 
         akasittelija = new AsiakastiedostonKasittelija("tyhja.txt");
-        //      akasittelija = new AsiakastiedostonKasittelija(tiedostonNimi);
+
         asiakkaat = akasittelija.lueAsiakkaatTiedostosta();
         assertEquals("asiakkaiden määrä ei nolla", 0, asiakkaat.size());
     }
-@Test
+
+    @Test
     public void testaaTiedostoaEiOlemassa() throws IOException {
         String tnimi = "eiOlemassa.txt";
         akasittelija = new AsiakastiedostonKasittelija(tnimi);
         asiakkaat = akasittelija.lueAsiakkaatTiedostosta();
         assertEquals("asiakkaiden määrä ei nolla", 0, asiakkaat.size());
-        //poista tiedosto eiOlemassa.txt projektin hakemistosta testin ajon jälkeen
 
-        File tyhjatiedosto = new File (tnimi);
+        //poistetaan tiedosto eiOlemassa.txt projektin hakemistosta testin ajon jälkeen
+        File tyhjatiedosto = new File(tnimi);
         tyhjatiedosto.delete();
 
-    
+
     }
-    
-    
+
     @Test
     public void testaaOnnistunutKirjoitus() throws IOException {
         //varmistetaan että tiedosto on tyhjä
@@ -199,7 +195,7 @@ public class AsiakastiedostonKasittelijaTest {
             ok = false;
             virheilmoitus = "Tila ei ole NORMAALI";
         }
-        
-        assertTrue(virheilmoitus,ok);
+
+        assertTrue(virheilmoitus, ok);
     }
 }

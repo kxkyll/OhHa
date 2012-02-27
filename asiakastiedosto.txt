@@ -20,8 +20,9 @@
 10006;Lumia;Lumikuja 4;87654 Lumela;987-654321;Luulia Lumi;19.02.2012;NORMAALI
 10010;Kolmasasiakas;Testikatu 3;00330 Kolmala;030-989898;Karoliina Kolmas;12.02.2012;NORMAALI
 10000;Asiakas;Lumikuja 8 A6;98765 Pikkala;343-454646;Janne Joku;19.02.2012;ARKISTOITU
+10021;VirkeaAamu Oy;Aamuillankuja 6;98712 Tampere;876-43567;Hannu Jalas;21.02.2012;NORMAALI
 10027;Vielä toinen;Jokutie 3;87656 ijuy;878909;yhgt;25.02.2012;NORMAALI
-10021;VirkeaAamu Oy;Aamuruskontie 4;98712 Tampere;876-43567;Hannu Jalas;21.02.2012;NORMAALI
 10020;InnaPinna;Katu 2;99876 Puikkola;765-432198;Jaana Joki;20.01.2012;NORMAALI
+10028;Jokutoinenasiakas;katu 4;87678;Porvoo;Janne Jokunen;25.02.2012;NORMAALI
 10009;Uusi;Uusitie 3;98789 Uusimaa;876-654325;Ulla Uutela;12.02.2012;NORMAALI
 10007;Kissala;oijlkj 6;98765 Innala;876-3456;Keijo Kissa;12.12.2011;ARKISTOITU
